@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.20.8
+# v0.20.13
 
 using Markdown
 using InteractiveUtils
@@ -23,28 +23,88 @@ using Plots
 using PlutoUI
 
 # ╔═╡ 52768f1a-5f98-44c5-9455-970a25fa2b2c
-g = -9.8 #m/s/s
+@bind g Slider([1.62, 9.81, 24.79]; default=9.81, show_value=true) #m/s/s
 
 # ╔═╡ 3da73d8a-1b5a-4f42-8118-57d649596f03
-@bind v Slider(0:0.1:10; default=5.0, show_value=true)
+@bind v Slider(0:0.1:10; default=5.0, show_value=true) #m/s
 
 # ╔═╡ 078d2fc7-e696-4cc0-9a3c-8c2dbe9dc69f
-@bind θ Slider(0:0.001:π/2; default=π/4, show_value=true)
+@bind θ Slider(0.01:0.01:90; default=45, show_value=true) # degrees
 
 # ╔═╡ 9839604b-88a6-4c28-8aba-e1cc7b7eb3d5
 @bind y Slider(0:0.1:50; default=25.0, show_value=true)
 
 # ╔═╡ c956d238-0db8-4f02-8edd-96324a2ff33a
-pos = [0, y]
+start_pos = [0, y]
 
 # ╔═╡ a2387af2-9a66-47cf-a587-6a3900afa8c7
-vel = [v*cos(θ), v*sin(θ)]
+start_vel = [v*cos(deg2rad(θ)), v*sin(deg2rad(θ))]
 
-# ╔═╡ aca8c3c1-7f73-4cc5-8663-3530af1e1033
+# ╔═╡ 55432df4-4ea7-4182-8496-7ead237a81e6
+acc = [0, -g]
 
+# ╔═╡ 3bacfccb-3ed3-40c8-a19e-ca400c503488
+function step(pos, vel, acc, dt)
+	new_pos = pos + vel*dt
+	new_vel = vel + acc*dt
+	return new_pos, new_vel
+end
+
+# ╔═╡ 4433df54-00c4-4aba-ae8f-15049407c913
+pos = start_pos
+
+# ╔═╡ 4584c802-561f-4eae-9ba9-880166e4bcf0
+vel = start_vel
+
+# ╔═╡ bae81767-a6b6-4d69-8ac6-2cd053b67c97
+h = 0.02
+
+# ╔═╡ 07a4851f-d7e0-4bb2-b2cf-1c7250c11998
+begin
+	history = [pos]
+	
+	while pos[2] >= 0
+		pos, vel = step(pos, vel, acc, h)	
+		push!(history, pos)
+	end
+	
+	result = reduce(hcat, history)'
+end
+
+# ╔═╡ f47351b8-7e33-4c15-a702-635d5081dfe1
+θ_opt = acos(sqrt((2*g*y+v*v)/(2*g*y+2*v*v)))
+
+# ╔═╡ aea46686-3c96-4bc7-bf79-8d6a06e1a41f
+θ_opt_deg = round(rad2deg(θ_opt); digits=2)
+
+# ╔═╡ 7efdd942-d9d2-4577-a315-079427ab2527
+pos_opt = [0, y]
+
+# ╔═╡ f93a1d70-1009-4e90-8938-1a91ad781e98
+vel_opt = [v*cos(θ_opt), v*sin(θ_opt)]
+
+# ╔═╡ 082019c2-5131-4aa5-a78d-53ac3785d1fc
+begin
+	history_opt = [pos_opt]
+	
+	while pos_opt[2] >= 0
+		pos_opt, vel_opt = step(pos_opt, vel_opt, acc, h)	
+		push!(history_opt, pos_opt)
+	end
+	
+	result_opt = reduce(hcat, history_opt)'
+end
 
 # ╔═╡ 0cbc7631-2189-4346-8da2-b0a0d663fcef
-plot(bar([0], [y]), xlims=(-1, 10), ylims=(0, 50))
+begin
+	plot(bar([0], [y], label="Launch Start $y m", ), 
+		 xlims=(-1, 10), ylims=(0, 50); 
+		 title="Optimal Launch Angle based on Elevation", 
+		 xaxis="Distance (m)", 
+		 yaxis="Height (m)")
+	plot!(result[:, 1], result[:, 2], label="Yours")
+	plot!(result_opt[:, 1], result_opt[:, 2], label="Optimal $θ_opt_deg")
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1209,9 +1269,19 @@ version = "1.8.1+0"
 # ╠═3da73d8a-1b5a-4f42-8118-57d649596f03
 # ╠═078d2fc7-e696-4cc0-9a3c-8c2dbe9dc69f
 # ╠═9839604b-88a6-4c28-8aba-e1cc7b7eb3d5
+# ╠═aea46686-3c96-4bc7-bf79-8d6a06e1a41f
+# ╠═0cbc7631-2189-4346-8da2-b0a0d663fcef
 # ╠═c956d238-0db8-4f02-8edd-96324a2ff33a
 # ╠═a2387af2-9a66-47cf-a587-6a3900afa8c7
-# ╠═aca8c3c1-7f73-4cc5-8663-3530af1e1033
-# ╠═0cbc7631-2189-4346-8da2-b0a0d663fcef
+# ╠═55432df4-4ea7-4182-8496-7ead237a81e6
+# ╠═3bacfccb-3ed3-40c8-a19e-ca400c503488
+# ╠═4433df54-00c4-4aba-ae8f-15049407c913
+# ╠═4584c802-561f-4eae-9ba9-880166e4bcf0
+# ╠═bae81767-a6b6-4d69-8ac6-2cd053b67c97
+# ╠═07a4851f-d7e0-4bb2-b2cf-1c7250c11998
+# ╠═f47351b8-7e33-4c15-a702-635d5081dfe1
+# ╠═7efdd942-d9d2-4577-a315-079427ab2527
+# ╠═f93a1d70-1009-4e90-8938-1a91ad781e98
+# ╠═082019c2-5131-4aa5-a78d-53ac3785d1fc
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
