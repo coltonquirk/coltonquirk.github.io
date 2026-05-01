@@ -88,7 +88,11 @@ with_theme(theme_latexfonts()) do
 end;
 ```
 
-![Julia set with `{julia} C_VAL` ](images/julia_set.svg){#fig-set}
+::: {#fig-set .column-screen}
+
+![Julia set with `{julia} C_VAL` ](images/julia_set.svg)
+
+:::
 
 # Mandelbrot Set
 
@@ -106,7 +110,11 @@ with_theme(theme_latexfonts()) do
 end;
 ```
 
-![The mandelbrot set!](images/mandelbrot_set.svg){#fig-mandelbrot}
+::: {#fig-mandelbrot .column-screen}
+
+![The mandelbrot set!](images/mandelbrot_set.svg)
+
+:::
 
 
 # Multibrot Sets
@@ -125,4 +133,8 @@ with_theme(theme_latexfonts()) do
 end;
 ```
 
-![The multibrot set with $n=5.0$.](images/multibrot_set_3.svg){#fig-multi}
+::: {#fig-multi .column-screen}
+
+![The multibrot set with $n=5.0$.](images/multibrot_set_3.svg)
+
+:::

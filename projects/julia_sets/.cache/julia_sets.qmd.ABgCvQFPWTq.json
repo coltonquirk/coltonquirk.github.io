@@ -176,7 +176,11 @@
             },
             "source": [
                 "\n",
-                "![Julia set with \\-0\\.5125114983878472 \\+ 0\\.5212955730948472im ](images/julia_set.svg){#fig-set}\n",
+                "::: {.column-page}\n",
+                "\n",
+                "![Julia set with \\-0\\.5125114983878472 \\+ 0\\.5212955730948472im ](images/julia_set.svg)\n",
+                "\n",
+                ":::\n",
                 "\n",
                 "# Mandelbrot Set"
             ]
@@ -226,7 +230,11 @@
             },
             "source": [
                 "\n",
-                "![The mandelbrot set!](images/mandelbrot_set.svg){#fig-mandelbrot}\n",
+                "::: {#fig-mandelbrot .fullwidth}\n",
+                "\n",
+                "![The mandelbrot set!](images/mandelbrot_set.svg)\n",
+                "\n",
+                ":::\n",
                 "\n",
                 "\n",
                 "# Multibrot Sets"
@@ -277,11 +285,15 @@
             },
             "source": [
                 "\n",
-                "![The multibrot set with $n=5.0$.](images/multibrot_set_3.svg){#fig-multi}"
+                "::: {#fig-multi .fullwidth}\n",
+                "\n",
+                "![The multibrot set with $n=5.0$.](images/multibrot_set_3.svg)\n",
+                "\n",
+                ":::"
             ]
         }
     ],
-    "timestamp": "2026-05-01T11:20:41.43",
+    "timestamp": "2026-05-01T12:39:39.798",
     "file": "/home/colton/Desktop/coltonquirk.github.io.git/projects/julia_sets/julia_sets.qmd",
     "qnr_schema_version": "1.0.0"
 }
