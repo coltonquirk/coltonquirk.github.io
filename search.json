@@ -7,6 +7,13 @@
     "text": "About this site"
   },
   {
+    "objectID": "projects/comp_phys_julia/comp_phys_julia.html",
+    "href": "projects/comp_phys_julia/comp_phys_julia.html",
+    "title": "Computational Physics with Julia",
+    "section": "",
+    "text": "Figure 1: Stellar orbit survey of a triaxial galaxy with \\(q_{1}=0.75\\) and \\(q_{2}=0.85\\)."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "coltonquirk",
@@ -25,6 +32,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Computational Physics with Julia\n\n\nExploring Computational Physics with Julia\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Computational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\nNo matching items"
   }
 ]

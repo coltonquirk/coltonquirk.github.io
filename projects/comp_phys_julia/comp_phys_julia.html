@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-05-01">
-<meta name="description" content="Exploring Computational Physics with Julia">
+<meta name="description" content="Exploring Computational Physics with Julia. View the book here.">
 
 <title>Computational Physics with Julia – coltonquirk</title>
 <style>
@@ -71,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -132,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Exploring Computational Physics with Julia
+    Exploring Computational Physics with Julia. <a href="https://coltonquirk.github.io/comp_phys_julia/">View the book here.</a>
   </div>
 </div>
 
@@ -155,6 +184,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div id="fig-survey" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/orbit_survey_0.75_0.85.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Stellar orbit survey of a triaxial galaxy with <span class="math inline">\(q_{1}=0.75\)</span> and <span class="math inline">\(q_{2}=0.85\)</span>.
+</figcaption>
+</figure>
+</div>
 
 
 
