@@ -343,7 +343,7 @@ Figure&nbsp;2: The mandelbrot set!
 <div id="fig-multi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="multibrot_set_3.svg" class="img-fluid figure-img">
+<img src="images/multibrot_set_3.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: The multibrot set with <span class="math inline">\(n=5.0\)</span>.
@@ -428,7 +428,7 @@ Figure&nbsp;3: The multibrot set with <span class="math inline">\(n=5.0\)</span>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/coltonquirk\.github\.io\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
