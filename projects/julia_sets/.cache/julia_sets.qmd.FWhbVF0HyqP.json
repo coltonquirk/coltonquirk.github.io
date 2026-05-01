@@ -8,6 +8,10 @@
             "source": [
                 "---\n",
                 "title: 'Mandelbrot and Julia Sets'\n",
+                "description: \"An exploration of plotting julia, mandelbrot, and multibrot sets.\"\n",
+                "image: images/julia_set.svg\n",
+                "categories: [Julia, plots]\n",
+                "\n",
                 "author: Colton Quirk\n",
                 "institute: University of St Andrews\n",
                 "date: '05/01/2026' \n",
@@ -176,10 +180,11 @@
             },
             "source": [
                 "\n",
-                "::: {.column-screen}\n",
+                "::: {#fig-set .column-screen}\n",
                 "\n",
-                "![Julia set with \\-0\\.5125114983878472 \\+ 0\\.5212955730948472im ](images/julia_set.svg)\n",
+                "![](images/julia_set.svg)\n",
                 "\n",
+                "Julia set with \\-0\\.5125114983878472 \\+ 0\\.5212955730948472im \n",
                 ":::\n",
                 "\n",
                 "# Mandelbrot Set"
@@ -230,10 +235,11 @@
             },
             "source": [
                 "\n",
-                "::: {#fig-mandelbrot .fullwidth}\n",
+                "::: {#fig-mandelbrot .column-screen}\n",
                 "\n",
-                "![The mandelbrot set!](images/mandelbrot_set.svg)\n",
+                "![](images/mandelbrot_set.svg)\n",
                 "\n",
+                "The mandelbrot set!\n",
                 ":::\n",
                 "\n",
                 "\n",
@@ -285,15 +291,16 @@
             },
             "source": [
                 "\n",
-                "::: {#fig-multi .fullwidth}\n",
+                "::: {#fig-multi .column-screen}\n",
                 "\n",
-                "![The multibrot set with $n=5.0$.](images/multibrot_set_3.svg)\n",
+                "![](images/multibrot_set_3.svg)\n",
                 "\n",
+                "The multibrot set with $n=5.0$.\n",
                 ":::"
             ]
         }
     ],
-    "timestamp": "2026-05-01T12:41:41.777",
+    "timestamp": "2026-05-01T16:17:33.809",
     "file": "/home/colton/Desktop/coltonquirk.github.io.git/projects/julia_sets/julia_sets.qmd",
     "qnr_schema_version": "1.0.0"
 }

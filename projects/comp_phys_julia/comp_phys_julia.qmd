@@ -1,0 +1,9 @@
+---
+title: "Computational Physics with Julia"
+description: "Exploring Computational Physics with Julia"
+date: 2026-05-01
+date-format: long
+image: images/orbit_survey_0.75_0.85.png
+categories: [Julia, Computational Physics]
+external-url: https://coltonquirk.github.io/comp_phys_julia/
+---
