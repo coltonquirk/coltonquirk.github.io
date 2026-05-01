@@ -7,6 +7,13 @@
     "text": "About this site"
   },
   {
+    "objectID": "projects/julia_sets/julia_sets.html",
+    "href": "projects/julia_sets/julia_sets.html",
+    "title": "Mandelbrot and Julia Sets",
+    "section": "",
+    "text": "1 General Julia Set\n\n# const C_VAL = complex(-0.7, 0.25)\nconst C_VAL = complex(-0.512511498387847167, 0.521295573094847167)\nconst MAX_ITER = 1000\nconst ESCAPE_RADIUS_SQ = 4.0;\n\n\nfunction jul(x, y; c=C_VAL, n=2.0)\n    z = complex(x, y)\n    for i in 1:MAX_ITER\n        if abs2(z) &gt; ESCAPE_RADIUS_SQ \n            return Float64(i)\n        end\n        z = z^n + c \n    end\n    return NaN\nend;\n\n\nfunction plot_julia_set(set_func, name;\n                        xlims=(-1.5, 1.5), ylims=(-1.0,1.0), res=1e-3,\n                        title = \"Julia Set with c=$(round(C_VAL, digits=4))\"\n                        )\n    xmin, xmax = xlims \n    ymin, ymax = ylims\n\n    res = 1e-3\n    xs = xmin:res:xmax\n    ys = ymin:res:ymax\n\n    inch = 96\n    pt = 4/3\n\n    fig = Figure(size=(10inch, 7inch), fontsize=12pt)\n\n    Label(fig[1,1],\n        title, \n        tellwidth=false)\n\n    ax = Axis(fig[2,1],\n            xlabel = \"Re(z)\",\n            ylabel = \"Im(z)\",\n            xticks = xmin:0.5:xmax,\n            yticks = ymin:0.25:ymax,\n            aspect = DataAspect()\n            )\n\n    hm = heatmap!(ax, xs, ys, set_func,\n            colormap = :inferno,\n            colorscale = log10,\n            nan_color = \"black\",\n            rasterize=4.0)\n\n    save(name, fig)\nend;\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(jul, \"images/julia_set.svg\")\nend;\n\n\n\n\n\n\n\nFigure 1: Julia set with -0.5125114983878472 + 0.5212955730948472im\n\n\n\n\n\n2 Mandelbrot Set\n\nmandelbrot(x, y) = jul(x, y; c = complex(x, y));\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(mandelbrot, \"images/mandelbrot_set.svg\";\n                    xlims = (-2.0, 1.0),\n                    ylims = (-1.1, 1.1),\n                    title = \"Mandelbrot Set\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 2: The mandelbrot set!\n\n\n\n\n\n3 Multibrot Sets\n\nnew_n(x, y) = jul(x, y; c = complex(x, y), n=5.0);\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(new_n, \"images/multibrot_set_3.svg\";\n                    xlims = (-2.0, 2.0),\n                    ylims = (-1.5, 1.5),\n                    title = \"Multibrot Set with n=$(5.0)\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 3: The multibrot set with \\(n=5.0\\)."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "coltonquirk",
@@ -14,10 +21,10 @@
     "text": "This is a Quarto website.\nabout\njulia sets random project\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
-    "objectID": "projects/julia_sets/julia_sets.html",
-    "href": "projects/julia_sets/julia_sets.html",
-    "title": "Mandelbrot and Julia Sets",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "1 General Julia Set\n\n# const C_VAL = complex(-0.7, 0.25)\nconst C_VAL = complex(-0.512511498387847167, 0.521295573094847167)\nconst MAX_ITER = 1000\nconst ESCAPE_RADIUS_SQ = 4.0;\n\n\nfunction jul(x, y; c=C_VAL, n=2.0)\n    z = complex(x, y)\n    for i in 1:MAX_ITER\n        if abs2(z) &gt; ESCAPE_RADIUS_SQ \n            return Float64(i)\n        end\n        z = z^n + c \n    end\n    return NaN\nend;\n\n\nfunction plot_julia_set(set_func, name;\n                        xlims=(-1.5, 1.5), ylims=(-1.0,1.0), res=1e-3,\n                        title = \"Julia Set with c=$(round(C_VAL, digits=4))\"\n                        )\n    xmin, xmax = xlims \n    ymin, ymax = ylims\n\n    res = 1e-3\n    xs = xmin:res:xmax\n    ys = ymin:res:ymax\n\n    inch = 96\n    pt = 4/3\n\n    fig = Figure(size=(10inch, 7inch), fontsize=12pt)\n\n    Label(fig[1,1],\n        title, \n        tellwidth=false)\n\n    ax = Axis(fig[2,1],\n            xlabel = \"Re(z)\",\n            ylabel = \"Im(z)\",\n            xticks = xmin:0.5:xmax,\n            yticks = ymin:0.25:ymax,\n            aspect = DataAspect()\n            )\n\n    hm = heatmap!(ax, xs, ys, set_func,\n            colormap = :inferno,\n            colorscale = log10,\n            nan_color = \"black\",\n            rasterize=4.0)\n\n    save(name, fig)\nend;\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(jul, \"images/julia_set.svg\")\nend;\n\n\n\n\n\n\n\nFigure 1: Julia set with -0.5125114983878472 + 0.5212955730948472im\n\n\n\n\n\n2 Mandelbrot Set\n\nmandelbrot(x, y) = jul(x, y; c = complex(x, y));\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(mandelbrot, \"images/mandelbrot_set.svg\";\n                    xlims = (-2.0, 1.0),\n                    ylims = (-1.1, 1.1),\n                    title = \"Mandelbrot Set\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 2: The mandelbrot set!\n\n\n\n\n\n3 Multibrot Sets\n\nnew_n(x, y) = jul(x, y; c = complex(x, y), n=5.0);\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(new_n, \"images/multibrot_set_3.svg\";\n                    xlims = (-2.0, 2.0),\n                    ylims = (-1.5, 1.5),\n                    title = \"Multibrot Set with n=$(5.0)\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 3: The multibrot set with \\(n=5.0\\)."
+    "text": "Exploration of Julia, Mandelbrot and Multibrot sets"
   }
 ]
