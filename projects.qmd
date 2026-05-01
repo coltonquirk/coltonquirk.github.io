@@ -1,0 +1,7 @@
+---
+title: "Projects"
+---
+
+[Exploration of Julia, Mandelbrot and Multibrot sets](projects/julia_sets/julia_sets.qmd)
+
+[Computational Physics with Julia](https://coltonquirk.github.io/comp_phys_julia/)
