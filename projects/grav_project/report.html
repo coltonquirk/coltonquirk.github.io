@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Colton Quirk">
+<meta name="dcterms.date" content="2026-04-16">
+
+<title>AS5523: Stellar Orbits and Numerical Integration</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="report_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="report_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_files/libs/bootstrap/bootstrap-3aea6f4feca0fe2902f14a6e6a95c9c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-orbit-integrator-scheme" id="toc-the-orbit-integrator-scheme" class="nav-link active" data-scroll-target="#the-orbit-integrator-scheme"><span class="header-section-number">1</span> The Orbit Integrator Scheme</a>
+  <ul class="collapse">
+  <li><a href="#acceleration-due-to-a-potential" id="toc-acceleration-due-to-a-potential" class="nav-link" data-scroll-target="#acceleration-due-to-a-potential"><span class="header-section-number">1.1</span> Acceleration due to a Potential</a></li>
+  <li><a href="#integrators" id="toc-integrators" class="nav-link" data-scroll-target="#integrators"><span class="header-section-number">1.2</span> Integrator(s)</a></li>
+  <li><a href="#orbit-simulationdriver" id="toc-orbit-simulationdriver" class="nav-link" data-scroll-target="#orbit-simulationdriver"><span class="header-section-number">1.3</span> Orbit Simulation/Driver</a></li>
+  </ul></li>
+  <li><a href="#orbits-around-a-point-mass" id="toc-orbits-around-a-point-mass" class="nav-link" data-scroll-target="#orbits-around-a-point-mass"><span class="header-section-number">2</span> Orbits Around a Point Mass</a>
+  <ul class="collapse">
+  <li><a href="#numerical-accuracy" id="toc-numerical-accuracy" class="nav-link" data-scroll-target="#numerical-accuracy"><span class="header-section-number">2.1</span> Numerical Accuracy</a></li>
+  <li><a href="#timestep-to-break-one-orbit" id="toc-timestep-to-break-one-orbit" class="nav-link" data-scroll-target="#timestep-to-break-one-orbit"><span class="header-section-number">2.2</span> Timestep to “Break” One Orbit</a></li>
+  </ul></li>
+  <li><a href="#orbits-in-galactic-potentials" id="toc-orbits-in-galactic-potentials" class="nav-link" data-scroll-target="#orbits-in-galactic-potentials"><span class="header-section-number">3</span> Orbits in Galactic Potentials</a>
+  <ul class="collapse">
+  <li><a href="#force-function" id="toc-force-function" class="nav-link" data-scroll-target="#force-function"><span class="header-section-number">3.1</span> Force Function</a></li>
+  <li><a href="#sec-plane" id="toc-sec-plane" class="nav-link" data-scroll-target="#sec-plane"><span class="header-section-number">3.2</span> Orbits in the <span class="math inline">\((r, v_{\mathrm{rot}})\)</span> Plane</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AS5523: Stellar Orbits and Numerical Integration</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Colton Quirk </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of St Andrews
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 16, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="the-orbit-integrator-scheme" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> The Orbit Integrator Scheme</h1>
+<p>The first part of the project was to create a program that is able to integrate the orbit of a star in three parts:</p>
+<ol type="1">
+<li>Driver (orbit driver)</li>
+<li>Integrator(s) (to advance the star to the next state)</li>
+<li>Acceleration (to calculate the acceleration from the state)</li>
+</ol>
+<section id="acceleration-due-to-a-potential" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="acceleration-due-to-a-potential"><span class="header-section-number">1.1</span> Acceleration due to a Potential</h2>
+<p>The first part that I tackled was to create a function to calculate The force experienced by a star orbiting a point mass. The acceleration due to this point mass is given by:</p>
+<p><span class="math display">\[\begin{equation}
+\vec{a} =
+\frac{d\vec{v}}{dt} =
+\frac{\vec{F}}{m} =
+- \frac{M_{\mathrm{ptmass}}}{r^3} \vec{r}
+\label{eq:eq-ptmass}
+\end{equation}\]</span></p>
+<p>Given this we can write a function for this acceleration</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">f</span>(t, state)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    pos, vel <span class="op">=</span> state </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> <span class="op">-</span> G <span class="op">*</span> M <span class="op">*</span> pos <span class="op">/</span> <span class="fu">norm</span>(pos)<span class="op">^</span><span class="fl">3</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [vel, acc]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This function makes use of the dynamic form of Ordinary Differential Equations as discussed in <span class="citation" data-cites="Landau2024_comp_phys">Landau, Páez, and Bordeianu (<a href="#ref-Landau2024_comp_phys" role="doc-biblioref">2024</a>)</span> chapter 8.</p>
+<p><span class="math display">\[\begin{equation}
+\frac{d \mathbf{S}(t)}{dt} = \mathbf{F}(t, \mathbf{S})
+\label{eq:eq-ode}
+\end{equation}\]</span></p>
+<p>Where the state of the system, and the force applied to it, are defined as:</p>
+<p><span class="math display">\[\begin{equation}
+\mathbf{S} =
+\begin{bmatrix}
+    S^{(0)}(t) \\
+    S^{(1)}(t) \\
+    \ddots \\
+    S^{(N-1)}(t) \\
+\end{bmatrix}, \qquad
+\mathbf{F} =
+\begin{bmatrix}
+    F^{(0)}(t, \mathbf{S}) \\
+    F^{(1)}(t, \mathbf{S}) \\
+    \ddots \\
+    F^{(N-1)}(t, \mathbf{S}) \\
+\end{bmatrix}.
+\label{eq:eq-ode-def}
+\end{equation}\]</span></p>
+<p>That is to say that the state of the system is defined by an <span class="math inline">\(N\)</span>-dimensional vector and the force that acts on the system is also an <span class="math inline">\(N\)</span>-dimensional vector. I had some difficulty combining this with the vector version of the force equations that I prefer to use. Using the vector versions allows us to not have to track <span class="math inline">\(x, y, z, v_x, v_y, v_z\)</span>, etc. individually. Rather the vectors can be placed into the equations directly and the forces are returned as vectors as well. I made it work with the following setup for the state and force vectors:</p>
+<p><span class="math display">\[\begin{equation}
+\mathbf{S} =
+\begin{bmatrix}
+    x &amp; y &amp; z \\
+    v_x &amp; v_y &amp; v_z \\
+\end{bmatrix}, \qquad
+\mathbf{F} =
+\begin{bmatrix}
+    v_x &amp; v_y &amp; v_z \\
+    a_x &amp; a_y &amp; a_z \\
+\end{bmatrix}.
+\label{eq:ode-my-def}
+\end{equation}\]</span></p>
+<p>The state of the system is held in <span class="math inline">\(\mathbf{S}\)</span>. <span class="math inline">\(\mathbf{S}[0]\)</span> (to use some python notation) is the position of the star and <span class="math inline">\(\mathbf{S}[1]\)</span> is the velocity of the star. Therefore the force function <span class="math inline">\(\mathbf{F}\)</span> will take in the state of the system, the current velocity becomes the force that is added to the position, the acceleration is calculated from the position/any other state variables, and then will be “added” to the velocity.</p>
+</section>
+<section id="integrators" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="integrators"><span class="header-section-number">1.2</span> Integrator(s)</h2>
+<p>I implemented many integrators for this project. The first was the Eulerian integrator described in the instructions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">euler</span>(t, y, force, dt)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fR <span class="op">=</span> <span class="fu">force</span>(t, y)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    y_new <span class="op">=</span> y <span class="op">+</span> fR <span class="op">*</span> dt </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y_new </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>I had to be careful when I eventually started to implement the symplectic integrators which update the position based on “future” velocities. For example the simplest symplectic integrator I implemented was an Eulerian symplectic integrator</p>
+<p><span class="math display">\[\begin{align}
+\vec{v}_{n+1} &amp;= \vec{v}_{n} + \Delta t \times \frac{d \vec{v}}{dt}, \\
+\vec{x}_{n+1} &amp;= \vec{x}_{n} + \Delta t \times \vec{v}_{n+1}.
+\label{eq:symplectic}
+\end{align}\]</span></p>
+<p>This introduces new challenges of keeping track of old positions and velocities to calculate intermediate accelerations.</p>
+<p>As well, for all the integrators I implemented I ensured that they used a common function call so that they could be easily swapped. Each integrator had as an input:</p>
+<ul>
+<li>The time, <span class="math inline">\(t\)</span> of the simulation step</li>
+<li>The current state of the system <span class="math inline">\(\mathbf{S}\)</span></li>
+<li>the force function that determines the force experienced by the system <span class="math inline">\(\mathbf{F}\)</span></li>
+<li>the time step, <span class="math inline">\(\Delta t\)</span>, of the integration.</li>
+</ul>
+<p>This ensured consistency between the functions and made testing them simple to change which function I was using.</p>
+<p>I implemented the following integrators:</p>
+<ul>
+<li>Eulerian Integrator</li>
+<li>Symplectic Eulerian integrator</li>
+<li>2<sup>nd</sup> order Eulerian Integrator as described in the instructions</li>
+<li>Leapfrog Integrator</li>
+<li>Velocity-Verlet Integrator</li>
+<li>2<sup>nd</sup> Order Runge-Kutta</li>
+<li>4<sup>th</sup> Order Runge-Kutta</li>
+<li>The provided 4<sup>th</sup> Order Runge-Kutta</li>
+<li>4<sup>th</sup> Order Yoshida Integrator</li>
+</ul>
+<p>See the source code for my implementation of the integrators.</p>
+</section>
+<section id="orbit-simulationdriver" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="orbit-simulationdriver"><span class="header-section-number">1.3</span> Orbit Simulation/Driver</h2>
+<p>The last step of the code was to setup a function that took the star and integrated its orbit over time using a chosen integrator and force function. In both Python and Julia I implemented star objects to hold the state, trajectory, energy, and angular momentum history of the star throughout its orbit. As well, I created two orbit functions, one for an orbit with a fixed timestep, and one for an orbit with an adaptive timestep. For the adaptive timestep orbit I used <span class="math display">\[\begin{equation}
+dt \ll \sqrt{\frac{r}{a}}
+\label{eq:timestep}
+\end{equation}\]</span> as the criteria for setting the timestep, as long as this was below some initial maximum timestep. I set a value of <span class="math inline">\(\eta \ll 1\)</span> and set the timestep with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> eta <span class="op">*</span> <span class="fu">sqrt</span>(<span class="fu">norm</span>(pos)<span class="op">/</span><span class="fu">norm</span>(acc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="orbits-around-a-point-mass" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Orbits Around a Point Mass</h1>
+<p>Once the three parts of the code were working I tested it by simulating a circular stellar orbit around a point mass.</p>
+<div id="fig-100" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/100_orbits_all_integrators_0.0001.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-100-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: 100 orbits around a point mass for all integrators
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-100" class="quarto-xref">Figure&nbsp;1</a> shows a plot of 100 orbits around a point mass for all integrators using a timestep of <span class="math inline">\(\Delta t = 0.0001\)</span>.</p>
+<div id="fig-change-all" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-change-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-all" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-E-all" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-E-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_100_0.0001.png" class="img-fluid figure-img" data-ref-parent="fig-change-all">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-E-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Relative Change in Energy
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-all" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-L-all" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-L-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_L_100_0.0001.png" class="img-fluid figure-img" data-ref-parent="fig-change-all">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-L-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Relative Change in Angular Momentum
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-change-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Change in the energy and angular momentum for all tested integrators over 100 orbits.
+</figcaption>
+</figure>
+</div>
+<p>As can be seen in figures <a href="#fig-change-E-all" class="quarto-xref">Figure&nbsp;2 (a)</a> and <a href="#fig-change-L-all" class="quarto-xref">Figure&nbsp;2 (b)</a> the Eulerian and 2<sup>nd</sup> order Eulerian integrators add energy over time. They do this to a much higher degree than the rest of the integrators.</p>
+<div id="fig-change-no-euler" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-change-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-no-euler" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-E-no-euler" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-E-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_no_euler.png" class="img-fluid figure-img" data-ref-parent="fig-change-no-euler">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-E-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Relative Change in Energy
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-no-euler" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-L-no-euler" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-L-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_L_no_euler.png" class="img-fluid figure-img" data-ref-parent="fig-change-no-euler">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-L-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Relative Change in Angular Momemntum
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-change-no-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Change in energy and angular momentum over 10 orbits without Euler and 2<sup>nd</sup> Order Euler integrators.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-E-no-euler" class="quarto-xref">Figure&nbsp;3 (a)</a> shows how the symplectic Eulerian integrator keeps the energy of the system bounded but does not explicitly conserve energy. <a href="#fig-L-no-euler" class="quarto-xref">Figure&nbsp;3 (b)</a> shows the RK2 and the provided RK4 integrators adding angular momentum over time as well, while the rest of the integrators keep the angular momentum approximately constant throughout the orbits. <a href="#fig-change-E" class="quarto-xref">Figure&nbsp;4</a> shows the behavior of the energy for various subsets of the integrators. One interesting thing to note is that the standard RK4 implementation loses energy over time while RK2 adds energy. I was not aware of this difference between the orders of the Runge-Kutta methods.</p>
+<div id="fig-change-E" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-change-E-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-E" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-E-rk2-bonnell" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-E-rk2-bonnell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_100_rk2_bonnell_0.001.png" class="img-fluid figure-img" data-ref-parent="fig-change-E">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-E-rk2-bonnell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) RK2 and provided RK4
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-E" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-E-rk4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-E-rk4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_100_rk4_0.05.png" class="img-fluid figure-img" data-ref-parent="fig-change-E">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-E-rk4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) RK4, Leapfrog, and Velocity-Verlet
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-E" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-E-frog-vv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-E-frog-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_20_leapfrog_vv_0.05.png" class="img-fluid figure-img" data-ref-parent="fig-change-E">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-E-frog-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) Leapfrog and Velocity-Verlet
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-change-E" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-change-E-yoshi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-change-E-yoshi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/change_in_E_20_yoshida_adap_0.052.svg" class="img-fluid figure-img" data-ref-parent="fig-change-E">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-change-E-yoshi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Yoshida with fixed and adaptive timesteps
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-change-E-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Relative change in energy for various subsets of the tested integrators
+</figcaption>
+</figure>
+</div>
+<p>An interesting point from the tests of the integrators around the point mass potential, was the different biases of the integrators. These biases were only apparent for large timesteps. <a href="#fig-bad-orbits" class="quarto-xref">Figure&nbsp;5</a> shows examples of orbits for all the integrators with large timesteps. It is clear to see the integrators that add energy over time as the star slowly drifts outward from the point mass. The symplectic integrators (Symplectic Euler, Leapfrog/Velocity-Verlet, and Yoshida) all show the bounded behavior of the energy, with the star oscillating between inner and outer regions.</p>
+<div id="fig-bad-orbits" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bad-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-euler" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_euler.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-euler-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Euler
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-symp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-symp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_symplectic.png" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-symp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Symplectic Euler
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-2nd" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-2nd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_2nd_order.svg" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-2nd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) 2<sup>nd</sup> Order Euler
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-frog-vv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-frog-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_leapfrog_vv.svg" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-frog-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) Leapfrog and Velocity-Verlet
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-rk2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-rk2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_rk2.png" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-rk2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(e) RK2
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-rk4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-rk4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_rk4.png" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-rk4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(f) RK4
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-rk4-bonnell" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-rk4-bonnell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_rk4_bonnell.png" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-rk4-bonnell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(g) Provided RK4
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bad-orbits" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bad-yoshida" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bad-yoshida-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/bad_yoshida.svg" class="img-fluid figure-img" style="width:75.0%" data-ref-parent="fig-bad-orbits">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bad-yoshida-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(h) Yoshida
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bad-orbits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Examples of orbits showing the biases in the various integrators.
+</figcaption>
+</figure>
+</div>
+<section id="numerical-accuracy" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="numerical-accuracy"><span class="header-section-number">2.1</span> Numerical Accuracy</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Numerical Accuracy Instructions">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Numerical Accuracy Instructions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculate how the error in the integration depends on the timestep used.</p>
+</div>
+</div>
+<p>Energy and Angular momentum should be conserved throughout the orbits. So I used those to test the accuracy of the various integrators. However three of the integrators ran into floating point errors in the change in energy see <a href="#fig-err-timestep" class="quarto-xref">Figure&nbsp;6 (a)</a>. These floating point error regions, and some asymptotic regions, were removed. The remaining data points were then used to fit the integrator’s error dependence on the timestep see <a href="#fig-err-timestep-fitted" class="quarto-xref">Figure&nbsp;6 (b)</a>.</p>
+<div id="fig-timestep-dependence" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-timestep-dependence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-timestep-dependence" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-err-timestep" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-err-timestep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/error_timestep_dependence.svg" class="img-fluid figure-img" data-ref-parent="fig-timestep-dependence">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-err-timestep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Error timestep dependence
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-timestep-dependence" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-err-timestep-fitted" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-err-timestep-fitted-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/error_timestep_fitted.svg" class="img-fluid figure-img" data-ref-parent="fig-timestep-dependence">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-err-timestep-fitted-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Fitted timestep dependence
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-timestep-dependence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: The error dependence on the timestep for all the integrators.
+</figcaption>
+</figure>
+</div>
+<p><a href="#tbl-error" class="quarto-xref">Table&nbsp;1</a> shows the final fitted values for each of the integrators. However because I used multiple symplectic integrators, which keep the energy bounded, this is not the best method to determine the true dependence of the error on the timestep. But it is useful to show the relative error dependence between the integrators.</p>
+<div id="tbl-error" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Integrators and their error dependence on the timesetp
+</figcaption>
+<div aria-describedby="tbl-error-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Integrator</th>
+<th style="text-align: center;">Fitted Error Dependence on <span class="math inline">\(\Delta t\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Euler</td>
+<td style="text-align: center;">0.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Symplectic Euler</td>
+<td style="text-align: center;">2.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2<sup>nd</sup> Order Euler</td>
+<td style="text-align: center;">0.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Leapfrog</td>
+<td style="text-align: center;">3.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Velocity-Verlet</td>
+<td style="text-align: center;">3.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">RK2</td>
+<td style="text-align: center;">2.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">RK4</td>
+<td style="text-align: center;">5.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Provided RK4</td>
+<td style="text-align: center;">2.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Yoshida</td>
+<td style="text-align: center;">7.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="timestep-to-break-one-orbit" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="timestep-to-break-one-orbit"><span class="header-section-number">2.2</span> Timestep to “Break” One Orbit</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="&quot;Break&quot; One Orbit Instruction">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>“Break” One Orbit Instruction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Evaluate at what timestep the integration breaks completely on one orbit.</p>
+</div>
+</div>
+<p>My interpretation of this instruction was to check the difference between the initial and final positions after one orbit. I set a tolerance value that if after one orbit the difference was greater than the tolerance I considered the orbit to be “broken”. For each of the integrators I tested one orbit for a range of timesteps. However this test did not reveal any particularly useful insights. I set the tolerance to be very high with <code>tol=1e-4</code> and even with this high of a tolerance all integrators “broke” with a timestep barely above <span class="math inline">\(\Delta t = 10^{-4}\)</span>. The only integrators that had a different breaking timestep were the basic euler integrator and the 2<sup>nd</sup> order euler integrator. <a href="#tbl-timestep" class="quarto-xref">Table&nbsp;2</a> shows the results of this analysis.</p>
+<div id="tbl-timestep" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-timestep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Integrators and the timesetp to break one orbit with a tolerance of <span class="math inline">\(0.001\)</span>
+</figcaption>
+<div aria-describedby="tbl-timestep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Integrator</th>
+<th style="text-align: center;"><span class="math inline">\(\Delta t\)</span> to Break One Orbit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Euler</td>
+<td style="text-align: center;">0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Symplectic Euler</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2<sup>nd</sup> Order Euler</td>
+<td style="text-align: center;">0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Leapfrog</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Velocity-Verlet</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">RK2</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">RK4</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Provided RK4</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Yoshida</td>
+<td style="text-align: center;">0.000153751</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="orbits-in-galactic-potentials" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Orbits in Galactic Potentials</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Galactic Potential Instructions">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Galactic Potential Instructions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Integrate a number of orbits with different initial conditions <span class="math inline">\((\vec{r}, \vec{v})\)</span>. Determine if each orbit is a loop orbit or a box orbit.</p>
+</div>
+</div>
+<p>We now simulate stellar orbits within a logarithmic galactic potential</p>
+<p><span class="math display">\[\begin{equation}
+\Phi_L =
+v_{0}^{2} \ln \left(
+R_{c}^{2} +
+x^{2} +
+\frac{y^{2}}{q_{1}^{2}} +
+\frac{z^{2}}{q_{2}^{2}}
+\right).
+\label{eq:eq-potential}
+\end{equation}\]</span></p>
+<section id="force-function" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="force-function"><span class="header-section-number">3.1</span> Force Function</h2>
+<p>First I derived the force experienced by the star from this potential</p>
+<p><span class="math display">\[\begin{align}
+m \frac{d \vec{v}}{dt} &amp;= - \nabla \Phi_L \\
+&amp;= - \frac{2 v_{0}^{2}}{R_{c}^{2} + x^{2} + y^{2}/q_{1}^{2} + z^{2}/q_{2}^{2}}
+\left[
+x \hat{x} +
+\frac{1}{q_{1}^{2}} y \hat{y} +
+\frac{1}{q_{2}^{2}} z \hat{z}
+\right]
+\label{eq:gal-force}
+\end{align}\]</span></p>
+<p>Once I got this function setup I tested it with the values of the potential set to <span class="math inline">\(q_1=1.0\)</span>, <span class="math inline">\(q_2=1.0\)</span>, <span class="math inline">\(R_c=0.2\)</span>, and <span class="math inline">\(v_0=1.0\)</span>. I simulated a stellar orbit starting at <span class="math inline">\(x=R_c\)</span> and <span class="math inline">\(v_{y}=v_{0}\)</span>. This produced the circular orbit in <a href="#fig-gal-circle" class="quarto-xref">Figure&nbsp;7 (a)</a>. I then tested this galactic setup for a variety of <span class="math inline">\(x\)</span> and <span class="math inline">\(v_{y}\)</span> values. Once I confirmed the integration worked with the axisymmetric potential I changed the initial conditions to have <span class="math inline">\(q_{1}=0.75\)</span>, and <span class="math inline">\(q_{2}=0.85\)</span>.</p>
+<div id="fig-gal-test" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gal-test-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gal-test" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-gal-circle" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-gal-circle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/circular_orbit_gal_potential.png" class="img-fluid figure-img" data-ref-parent="fig-gal-test">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-gal-circle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Test circular orbit within the galactic potential
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gal-test" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-loop" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-loop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gal_0.05_1.0_1.0.png" class="img-fluid figure-img" data-ref-parent="fig-gal-test">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-loop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Axisymmetric galactic potential starting at <span class="math inline">\(x=0.05\)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gal-test" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-loop-asym" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-loop-asym-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/loop_orbit_triaxial.png" class="img-fluid figure-img" data-ref-parent="fig-gal-test">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-loop-asym-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) <span class="math inline">\(\mathbf{r}=[3.0, 0.0, 0.0]\)</span>, <span class="math inline">\(\mathbf{v}=[0.0, 1.0, 0.0]\)</span> <span class="math inline">\(q_1=0.75\)</span> <span class="math inline">\(q_2=0.85\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-gal-test" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-box" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/gal_0.05_0.75_0.85.png" class="img-fluid figure-img" data-ref-parent="fig-gal-test">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) <span class="math inline">\(\mathbf{r}=[0.05, 0.0, 0.0]\)</span>, <span class="math inline">\(\mathbf{v}=[0.0, 1.0, 0.0]\)</span> <span class="math inline">\(q_1=0.75\)</span> <span class="math inline">\(q_2=0.85\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gal-test-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Comparison of orbits in a galactic potential.
+</figcaption>
+</figure>
+</div>
+<p>I then setup a more systematic “survey” of the various initial conditions for the stars. I sampled six values of starting <span class="math inline">\(x\)</span> and <span class="math inline">\(v_{y}\)</span> values to produce the orbit survey in <a href="#fig-survey" class="quarto-xref">Figure&nbsp;8</a>. Each orbit was then classified into either a box or loop orbit based on the orbit classfier function discussed in <a href="#sec-plane" class="quarto-xref">Section&nbsp;3.2</a>.</p>
+<div id="fig-survey" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/orbit_survey_0.75_0.85.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Orbit survey for triaxial galaxy with <span class="math inline">\(q_{1}=0.75\)</span> and <span class="math inline">\(q_{2}=0.85\)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-plane" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-plane"><span class="header-section-number">3.2</span> Orbits in the <span class="math inline">\((r, v_{\mathrm{rot}})\)</span> Plane</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Can you determine roughly in the <span class="math inline">\((r, v_{\mathrm{rot}})\)</span> plane where loop and box orbits are located? (<span class="math inline">\(v_{\mathrm{rot}}\)</span> is the rotational velocity <span class="math inline">\(v_{\mathrm{rot}}=\frac{\vec{v} \times \vec{r}}{r}\)</span>)</p>
+</div>
+</div>
+<div id="fig-loop-vs-box" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loop-vs-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/loop_orbit_projection.png" class="img-fluid figure-img"></p>
+<figcaption>Loop orbit projections</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/box_orbit_projection.png" class="img-fluid figure-img"></p>
+<figcaption>Box orbit projections</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/loop_orbit_energy.png" class="img-fluid figure-img"></p>
+<figcaption><span class="math inline">\(E\)</span>, <span class="math inline">\(\mathbf{L}\)</span>, and <span class="math inline">\(\Delta t\)</span> history.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/box_orbit_energy.png" class="img-fluid figure-img"></p>
+<figcaption><span class="math inline">\(E\)</span>, <span class="math inline">\(\mathbf{L}\)</span>, and <span class="math inline">\(\Delta t\)</span> history.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loop-vs-box-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Comparison of box and loop orbits. The inital conditions are <span class="math inline">\(\mathbf{r}=[0.05, 0, 0]\)</span> and <span class="math inline">\(\mathbf{v}=[0, 1.0, 0.1]\)</span>. The loop orbit comes from a galactic potential with <span class="math inline">\(q_1=q_2=1.0\)</span>. The box orbit comes from a galactic potential with <span class="math inline">\(q_1=0.75\)</span> and <span class="math inline">\(q_2=0.85\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>I wrote a function to determine whether each orbit was a box orbit or a loop orbit. There were two possible ways of classifying the orbits. The first was that for a large number of orbits the average angular momentum should be <span class="math inline">\(0\)</span> for a box orbit <span class="citation" data-cites="Binney2008_gal_dyn">(<a href="#ref-Binney2008_gal_dyn" role="doc-biblioref">Binney and Tremaine 2008</a>)</span>. Whereas a loop orbit, because it keeps a sense of rotation, the average angular momentum should be some non-zero value. However, this would involve integrating a very large number of orbits to ensure the average is approximately <span class="math inline">\(0\)</span>. The other option is that the angular momentum changes sign over time in a box orbit. Thus I created a function that checked that the sign of <span class="math inline">\(L_{z}\)</span> stays constant throughout the orbit. <a href="#fig-loop-vs-box" class="quarto-xref">Figure&nbsp;9</a> shows two examples of box and loop orbits. The components of the angular momentum of the loop orbit have the same sign throughout the orbit. The box orbit shows the various components changing sign periodically throughout the simulation. Once I had that function working I simulated <span class="math inline">\(10,000\)</span> stars and classified them as loop or box orbits. Then I took their initial positions and calculated <span class="math inline">\((r_{0}, v_{\mathrm{rot},0})\)</span> for each of the orbits and plotted them on a heatmap. <a href="#fig-rvrot-plane" class="quarto-xref">Figure&nbsp;10</a> shows the results of these orbits.</p>
+<div id="fig-rvrot-plane" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rvrot-plane-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/r_vrot_plane.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rvrot-plane-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: <span class="math inline">\(100\times100\)</span> orbits in the <span class="math inline">\((r, v_{\mathrm{rot}})\)</span> plane classified as loop and box orbits
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="references" class="level1 unlisted unnumbered">
+<h1 class="unlisted unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Binney2008_gal_dyn" class="csl-entry" role="listitem">
+Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics: Second Edition</span></em>.
+</div>
+<div id="ref-Landau2024_comp_phys" class="csl-entry" role="listitem">
+Landau, Rubin H, Manuel J Páez, and Cristian C Bordeianu. 2024. <em>Computational Physics: Problem Solving with Python</em>. 4th ed. Wiley-Blackwell.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
