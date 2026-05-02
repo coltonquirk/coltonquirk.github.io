@@ -2,6 +2,8 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/grav_project/report.html",
+      "/projects/fluids_project/report.html",
       "/projects/comp_phys_julia/comp_phys_julia.html",
       "/projects/julia_sets/julia_sets.html"
     ]
