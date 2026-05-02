@@ -4,8 +4,4 @@ title: "coltonquirk"
 
 This is a Quarto website.
 
-[about](about.qmd)
-
-[julia sets random project](projects/julia_sets/julia_sets.qmd)
-
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
