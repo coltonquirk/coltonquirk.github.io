@@ -1,4 +1,7 @@
 /.quarto/
 /_site/
+
 /projects/fluids_project/output/
+
 **/*.quarto_ipynb
+**/.cache/
