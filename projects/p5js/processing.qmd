@@ -29,10 +29,7 @@ import {p5} from "@tmcw/p5"
 
 ---
 
-## Sketch 1 - Interactive paint canvas
-
-Move your mouse (or touch) over the canvas to draw.
-Click to clear.
+## Sketch 1 - Basic Canvas and Shape
 
 ```{ojs}
 p5(sketch => {
@@ -50,5 +47,132 @@ p5(sketch => {
 
 ---
 
+## Sketch 2 - Interactive Drawing
 
+```{ojs}
+p5((p) => {
+    let system;
+    p.setup = function() {
+        // Create the canvas 
+        p.createCanvas(710, 400);
 
+        // Set background to black
+        p.background(0); 
+
+        // Set width of the lines
+        p.strokeWeight(10);
+
+        // Set color mode to hue-saturation-brightness (HSB)
+        p.colorMode(p.HSB);
+
+        // Set screen reader accessible description 
+        p.describe('A blank canvas where the user draws by dragging the mouse');
+    };
+
+    p.mouseDragged = function() {
+        // Set the  color based on the mouse position, and draw a line 
+        // from the previous position ot the current position 
+        let lineHue = p.mouseX - p.mouseY;
+        p.stroke(lineHue, 90, 90);
+        p.line(p.pmouseX, p.pmouseY, p.mouseX, p.mouseY);
+    }
+})
+```
+
+Drag your mouse (or touch) over the canvas to draw.
+Refresh the page to clear.
+
+---
+
+## Sketch 3 - Animation with Events 
+
+```{ojs}
+p5((p) => {
+    let system;
+    let x = 25;
+
+    p.setup = function() {
+        // Create the canvas 
+        p.createCanvas(720, 400);
+
+        // Set the color mode to hue-saturation-brightness (HSB)
+        p.colorMode(p.HSB); 
+
+        // Set the text size 
+        p.textSize(20);
+
+        // No animation to start 
+        p.noLoop();
+    };
+
+    p.draw = function() {
+        // Clear the background 
+        p.background(0); 
+        
+        // Draw a circle, with hue determined by frameCount 
+        p.fill(x/3, 90, 90);
+        p.circle(x, p.height/2, 50);
+
+        // Increase the x variable by 5 
+        x += 5;
+
+        // Reset the circle position after it modves off the right side 
+        if (x > p.width + 25) {
+            x = -25;
+        }
+
+        p.describe('circle moving to the right');
+    }; 
+
+    p.mousePressed = function() {
+        // Start/stop the animation loop 
+        if (p.isLooping()) {
+            p.noLoop();
+        } else {
+            p.loop();
+        }
+    };
+
+    p.keyPressed = function() {
+        // Draw one frame 
+        p.redraw();
+    }
+})
+```
+
+---
+
+## Sketch 4 - Fun drawing canvas
+
+```{ojs}
+p5(s => {
+    let brushColor = s.color(200, 0, 200, 50);
+    let isKeyPressed = false;
+    s.setup = function(){
+        s.createCanvas(width, 300); // width is an Observable variable here
+        s.background(205);
+    }
+    s.draw = function(){
+        // Only draw when the mouse is pressed 
+        if(s.mouseIsPressed){
+            if(isKeyPressed){ // if a key is pressed, use stroke
+                s.noFill();
+                s.stroke(brushColor); // if a key is not pressed, use fill
+            }else{
+                s.noStroke();
+                s.fill(brushColor);
+            }
+        s.circle(s.mouseX, s.mouseY, 40);
+        }
+    }
+
+    s.keyPressed = function(){
+        // Tracking keys this way because keyIsDown() doesn't seem
+        // to work in observable 
+        isKeyPressed = true;
+    }
+    s.keyReleased = function(){
+        isKeyPressed = false;
+    }
+})
+```
