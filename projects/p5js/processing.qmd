@@ -12,6 +12,9 @@ toc: true
 number-sections: true
 
 format: html
+
+execute:
+    echo: false 
 ---
 
 # p5.js inside Quarto via Observable JS
@@ -176,3 +179,69 @@ p5(s => {
     }
 })
 ```
+
+---
+
+## Sketch 5 - Cellular Automata
+
+```{ojs}
+viewof rule = Inputs.range([0, 255], {value: 90, step: 1, label: "Rule for Cellular Automata"});
+
+function ruleArr(n) {
+  return (n & 0xFF).toString(2).padStart(8, '0').split('').map(Number);
+};
+
+p5(s => {
+    let cells;
+    let generation = 0;
+    let w = 5;
+    let ruleset = ruleArr(rule);
+
+    s.setup = function() {
+        s.createCanvas(width, 499);
+        s.background(255);
+
+
+        cells = new Array(s.floor(width/w)); 
+        for (let i = 0; i < cells.length; i++) {
+            cells[i] = 0;
+        }
+        cells[s.floor(cells.length / 2)] = 1;
+    };
+
+    s.draw = function() {
+        for (let i = 1; i < cells.length-1; i++) {
+            if (cells[i] === 1) {
+                s.fill(0);
+                s.square(i*w, generation*w, w);
+            }
+        }
+
+        let nextgen = cells.slice();
+        for (let i = 1; i < cells.length; i++) {
+            let left = cells[i-1];
+            let me = cells[i];
+            let right = cells[i+1];
+            nextgen[i] = s.rules(left, me, right);
+        }
+        cells = nextgen;
+        generation++;
+
+        if (generation * w > s.height) {
+            s.noLoop();
+        }
+    };
+
+    s.rules = function(a, b, c) {
+        let s = "" + a + b + c;
+        let index = parseInt(s, 2);
+        // invert the index so 0 becomes 7, 1 becomes 6, and so on.
+        return ruleset[7 - index];
+    }
+})
+```
+
+--- 
+
+
+## Sketch 6 - Creating Space
