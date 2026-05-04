@@ -70,11 +70,60 @@
     "text": "1 General Julia Set\n\n# const C_VAL = complex(-0.7, 0.25)\nconst C_VAL = complex(-0.512511498387847167, 0.521295573094847167)\nconst MAX_ITER = 1000\nconst ESCAPE_RADIUS_SQ = 4.0;\n\n\nfunction jul(x, y; c=C_VAL, n=2.0)\n    z = complex(x, y)\n    for i in 1:MAX_ITER\n        if abs2(z) &gt; ESCAPE_RADIUS_SQ \n            return Float64(i)\n        end\n        z = z^n + c \n    end\n    return NaN\nend;\n\n\nfunction plot_julia_set(set_func, name;\n                        xlims=(-1.5, 1.5), ylims=(-1.0,1.0), res=1e-3,\n                        title = \"Julia Set with c=$(round(C_VAL, digits=4))\"\n                        )\n    xmin, xmax = xlims \n    ymin, ymax = ylims\n\n    res = 1e-3\n    xs = xmin:res:xmax\n    ys = ymin:res:ymax\n\n    inch = 96\n    pt = 4/3\n\n    fig = Figure(size=(10inch, 7inch), fontsize=12pt)\n\n    Label(fig[1,1],\n        title, \n        tellwidth=false)\n\n    ax = Axis(fig[2,1],\n            xlabel = \"Re(z)\",\n            ylabel = \"Im(z)\",\n            xticks = xmin:0.5:xmax,\n            yticks = ymin:0.25:ymax,\n            aspect = DataAspect()\n            )\n\n    hm = heatmap!(ax, xs, ys, set_func,\n            colormap = :inferno,\n            colorscale = log10,\n            nan_color = \"black\",\n            rasterize=4.0)\n\n    save(name, fig)\nend;\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(jul, \"images/julia_set.svg\")\nend;\n\n\n\n\n\n\n\nFigure 1: Julia set with -0.5125114983878472 + 0.5212955730948472im\n\n\n\n\n\n2 Mandelbrot Set\n\nmandelbrot(x, y) = jul(x, y; c = complex(x, y));\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(mandelbrot, \"images/mandelbrot_set.svg\";\n                    xlims = (-2.0, 1.0),\n                    ylims = (-1.1, 1.1),\n                    title = \"Mandelbrot Set\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 2: The mandelbrot set!\n\n\n\n\n\n3 Multibrot Sets\n\nnew_n(x, y) = jul(x, y; c = complex(x, y), n=5.0);\n\n\nwith_theme(theme_latexfonts()) do \n    plot_julia_set(new_n, \"images/multibrot_set_3.svg\";\n                    xlims = (-2.0, 2.0),\n                    ylims = (-1.5, 1.5),\n                    title = \"Multibrot Set with n=$(5.0)\"\n                  )\nend;\n\n\n\n\n\n\n\nFigure 3: The multibrot set with \\(n=5.0\\)."
   },
   {
+    "objectID": "projects/p5js/processing.html",
+    "href": "projects/p5js/processing.html",
+    "title": "P5 and Quarto",
+    "section": "",
+    "text": "This cell loads p5.js from a CDN and defines createSketch, the generator function that safely attaches each sketch to its own &lt;div&gt;. You only need this block once per document.\n\nimport {p5} from \"@tmcw/p5\"\n\n\n\n\n\n\n\n\n\n\nMove your mouse (or touch) over the canvas to draw. Click to clear.\n\np5(sketch =&gt; {\n    let system;\n    sketch.setup = function() {\n        sketch.createCanvas(width, 320);\n    };\n    sketch.draw = function() {\n        sketch.translate(sketch.width / 2, sketch.height / 2);\n        sketch.background(200);\n        sketch.rect(-50, -50, 100, 100);\n    }\n})"
+  },
+  {
+    "objectID": "projects/p5js/processing.html#setup---load-p5-and-define-the-sketch-helper",
+    "href": "projects/p5js/processing.html#setup---load-p5-and-define-the-sketch-helper",
+    "title": "P5 and Quarto",
+    "section": "",
+    "text": "This cell loads p5.js from a CDN and defines createSketch, the generator function that safely attaches each sketch to its own &lt;div&gt;. You only need this block once per document.\n\nimport {p5} from \"@tmcw/p5\""
+  },
+  {
+    "objectID": "projects/p5js/processing.html#sketch-1---interactive-paint-canvas",
+    "href": "projects/p5js/processing.html#sketch-1---interactive-paint-canvas",
+    "title": "P5 and Quarto",
+    "section": "",
+    "text": "Move your mouse (or touch) over the canvas to draw. Click to clear.\n\np5(sketch =&gt; {\n    let system;\n    sketch.setup = function() {\n        sketch.createCanvas(width, 320);\n    };\n    sketch.draw = function() {\n        sketch.translate(sketch.width / 2, sketch.height / 2);\n        sketch.background(200);\n        sketch.rect(-50, -50, 100, 100);\n    }\n})"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "coltonquirk",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "This is a Quarto website.\nTesting the git features again. Is this visible?\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "projects/p5js/observable.html",
+    "href": "projects/p5js/observable.html",
+    "title": "Observable JS and Quarto",
+    "section": "",
+    "text": "viewof radius = Inputs.range([5, 100], {\n    value: 40,\n    step: 1,\n    label: \"Circle radius\"\n})\n\n\n\n\n\n\n\nhtml`&lt;svg width=\"220\" height=\"220\"&gt;\n    &lt;circle\n        cx=\"110\" cy=\"110\"\n        r=\"${radius}\"\n        fill=\"steelblue\"\n        opacity=\"0.7\"\n    /&gt;\n&lt;/svg&gt;`\n\n\n\n\n\n\n\n\n\n\n\n{\n    const w = 400, h = 120, r = 20;\n    const svg = d3.create(\"svg\").attr(\"width\", w).attr(\"height\", h);\n    svg.append(\"rect\")\n        .attr(\"width\", w).attr(\"height\", h)\n        .attr(\"rx\", 8)\n        .attr(\"fill\", \"#f0f4f8\");\n\n    const ball = svg.append(\"circle\")\n        .attr(\"r\", r).attr(\"cy\", h / 2)\n        .attr(\"fill\", \"#e76f51\");\n\n    let x = r, vx = 3;\n    while (true) {\n        yield svg.node();\n        await Promises.delay(16);\n        x += vx;\n        if (x &gt;= w-r || x &lt;= r) vx *= -1;\n        ball.attr(\"cx\", x);\n    }\n}\n\n\n\n\n\n\n\n\n\n\n\nviewof n = Inputs.range([3, 20], { value: 8, step: 1, label: \"Number of bars\" })\n\n\n\n\n\n\n\ndata = Array.from({ length: n }, (_, i) =&gt; ({\n    label: `item ${i + 1}`,\n    value: Math.round(10 + Math.random() * 90)\n}))\n\n\n\n\n\n\n\nPlot.plot({\n    marginLeft: 60,\n    x: { label: \"Value\" },\n    y: { label: null },\n    marks: [\n    Plot.barX(data, { x: \"value\", y: \"label\", fill: \"steelblue\", sort: { y: \"-x\" } }),\n    Plot.ruleX([0])\n    ]\n})\n\n\n\n\n\n\n\n\n{\n    const w = 400, h = 200;\n    const svg = d3.create(\"svg\")\n        .attr(\"width\", w).attr(\"height\", h)\n        .style(\"cursor\", \"crosshair\")\n        .style(\"background\", \"#1a1a2e\")\n        .style(\"border-radius\", \"8px\");\n\n    const dot = svg.append(\"circle\")\n        .attr(\"r\", 12).attr(\"cx\", w/2).attr(\"cy\", h/2)\n        .attr(\"fill\", \"e94560\").attr(\"opacity\", 0.9);\n\n    const label = svg.append(\"text\")\n        .attr(\"fill\", \"white\").attr(\"font-size\", 12)\n        .attr(\"x\", 10).attr(\"y\", 20)\n        .text(\"Move your mouse here\");\n\n    svg.on(\"mousemove\", (event) =&gt; {\n        const [mx, my] = d3.pointer(event);\n        dot.attr(\"cx\", mx).attr(\"cy\", my);\n        label.text(`x: ${Math.round(mx)} y: ${Math.round(my)}`);\n    });\n\n    yield svg.node();\n}"
+  },
+  {
+    "objectID": "projects/p5js/observable.html#reactive-slider-live-output",
+    "href": "projects/p5js/observable.html#reactive-slider-live-output",
+    "title": "Observable JS and Quarto",
+    "section": "",
+    "text": "viewof radius = Inputs.range([5, 100], {\n    value: 40,\n    step: 1,\n    label: \"Circle radius\"\n})\n\n\n\n\n\n\n\nhtml`&lt;svg width=\"220\" height=\"220\"&gt;\n    &lt;circle\n        cx=\"110\" cy=\"110\"\n        r=\"${radius}\"\n        fill=\"steelblue\"\n        opacity=\"0.7\"\n    /&gt;\n&lt;/svg&gt;`"
+  },
+  {
+    "objectID": "projects/p5js/observable.html#simple-animation-bouncing-ball",
+    "href": "projects/p5js/observable.html#simple-animation-bouncing-ball",
+    "title": "Observable JS and Quarto",
+    "section": "",
+    "text": "{\n    const w = 400, h = 120, r = 20;\n    const svg = d3.create(\"svg\").attr(\"width\", w).attr(\"height\", h);\n    svg.append(\"rect\")\n        .attr(\"width\", w).attr(\"height\", h)\n        .attr(\"rx\", 8)\n        .attr(\"fill\", \"#f0f4f8\");\n\n    const ball = svg.append(\"circle\")\n        .attr(\"r\", r).attr(\"cy\", h / 2)\n        .attr(\"fill\", \"#e76f51\");\n\n    let x = r, vx = 3;\n    while (true) {\n        yield svg.node();\n        await Promises.delay(16);\n        x += vx;\n        if (x &gt;= w-r || x &lt;= r) vx *= -1;\n        ball.attr(\"cx\", x);\n    }\n}"
+  },
+  {
+    "objectID": "projects/p5js/observable.html#reactive-bar-chart-with-observable-plot",
+    "href": "projects/p5js/observable.html#reactive-bar-chart-with-observable-plot",
+    "title": "Observable JS and Quarto",
+    "section": "",
+    "text": "viewof n = Inputs.range([3, 20], { value: 8, step: 1, label: \"Number of bars\" })\n\n\n\n\n\n\n\ndata = Array.from({ length: n }, (_, i) =&gt; ({\n    label: `item ${i + 1}`,\n    value: Math.round(10 + Math.random() * 90)\n}))\n\n\n\n\n\n\n\nPlot.plot({\n    marginLeft: 60,\n    x: { label: \"Value\" },\n    y: { label: null },\n    marks: [\n    Plot.barX(data, { x: \"value\", y: \"label\", fill: \"steelblue\", sort: { y: \"-x\" } }),\n    Plot.ruleX([0])\n    ]\n})\n\n\n\n\n\n\n\n\n{\n    const w = 400, h = 200;\n    const svg = d3.create(\"svg\")\n        .attr(\"width\", w).attr(\"height\", h)\n        .style(\"cursor\", \"crosshair\")\n        .style(\"background\", \"#1a1a2e\")\n        .style(\"border-radius\", \"8px\");\n\n    const dot = svg.append(\"circle\")\n        .attr(\"r\", 12).attr(\"cx\", w/2).attr(\"cy\", h/2)\n        .attr(\"fill\", \"e94560\").attr(\"opacity\", 0.9);\n\n    const label = svg.append(\"text\")\n        .attr(\"fill\", \"white\").attr(\"font-size\", 12)\n        .attr(\"x\", 10).attr(\"y\", 20)\n        .text(\"Move your mouse here\");\n\n    svg.on(\"mousemove\", (event) =&gt; {\n        const [mx, my] = d3.pointer(event);\n        dot.attr(\"cx\", mx).attr(\"cy\", my);\n        label.text(`x: ${Math.round(mx)} y: ${Math.round(my)}`);\n    });\n\n    yield svg.node();\n}"
   },
   {
     "objectID": "projects/fluids_project/report.html",
@@ -130,6 +179,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "AS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\nApr 3, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "AS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\nApr 3, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\nObservable JS and Quarto\n\n\nExperimenting with Observable JS within quarto documents.\n\n\n\nMay 4, 2026\n\n\n\n\n\n\n\n\n\n\n\nP5 and Quarto\n\n\nExperimenting with p5.js within quarto documents.\n\n\n\nMay 4, 2026\n\n\n\n\n\n\nNo matching items"
   }
 ]
