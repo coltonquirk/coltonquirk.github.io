@@ -19,14 +19,11 @@ execute:
 
 # p5.js inside Quarto via Observable JS
 
-## setup - load p5 and define the sketch helper
-
-This cell loads p5.js from a CDN and defines `createSketch`,
-the generator function that safely attaches each sketch to its own 
-`<div>`.
-You only need this block once per document.
+## setup - load p5 
 
 ```{ojs}
+//| echo: true
+
 import {p5} from "@tmcw/p5"
 ```
 
