@@ -1,0 +1,54 @@
+---
+title: "P5 and Quarto"
+description: "Experimenting with p5.js within quarto documents."
+date: 05-04-2026
+categories: [p5.js, plotting]
+
+author: Colton Quirk
+institute: University of St Andrews
+date-format: long
+toc: true
+
+number-sections: true
+
+format: html
+---
+
+# p5.js inside Quarto via Observable JS
+
+## setup - load p5 and define the sketch helper
+
+This cell loads p5.js from a CDN and defines `createSketch`,
+the generator function that safely attaches each sketch to its own 
+`<div>`.
+You only need this block once per document.
+
+```{ojs}
+import {p5} from "@tmcw/p5"
+```
+
+---
+
+## Sketch 1 - Interactive paint canvas
+
+Move your mouse (or touch) over the canvas to draw.
+Click to clear.
+
+```{ojs}
+p5(sketch => {
+    let system;
+    sketch.setup = function() {
+        sketch.createCanvas(width, 320);
+    };
+    sketch.draw = function() {
+        sketch.translate(sketch.width / 2, sketch.height / 2);
+        sketch.background(200);
+        sketch.rect(-50, -50, 100, 100);
+    }
+})
+```
+
+---
+
+
+
