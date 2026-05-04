@@ -1,0 +1,17 @@
+---
+title: "Computational Physics with Julia"
+description: "Exploring Computational Physics with Julia. [View the book here.](https://coltonquirk.github.io/comp_phys_julia/)"
+date: 2026-05-01
+date-format: long
+image: images/orbit_survey_0.75_0.85.png
+categories: [Julia, Computational Physics]
+---
+
+
+::: {#fig-survey}
+
+![](images/orbit_survey_0.75_0.85.png)
+
+Stellar orbit survey of a triaxial galaxy with $q_{1}=0.75$ and $q_{2}=0.85$.
+
+:::

@@ -1,0 +1,9 @@
+---
+title: "Projects"
+listing:
+    contents: projects
+    type: grid
+    image-height: 200px
+    fields: [image, title, description, date]
+---
+
