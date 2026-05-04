@@ -1,6 +1,0 @@
-[deps]
-CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
-Glob = "c27321d9-0574-5035-807b-f59d2c89b15c"
-LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
-NPZ = "15e1cf62-19b3-5cfa-8e77-841668bca605"
-PyFormattedStrings = "5f89f4a4-a228-4886-b223-c468a82ed5b9"
