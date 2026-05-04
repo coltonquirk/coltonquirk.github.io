@@ -105,7 +105,7 @@ Plot.plot({
 
     const dot = svg.append("circle")
         .attr("r", 12).attr("cx", w/2).attr("cy", h/2)
-        .attr("fill", "e94560").attr("opacity", 0.9);
+        .attr("fill", "#e94560").attr("opacity", 0.9);
 
     const label = svg.append("text")
         .attr("fill", "white").attr("font-size", 12)
