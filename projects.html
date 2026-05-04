@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-title','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -173,9 +173,9 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=">Computational Fluid Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMFBoeXNpY3M=">Computational Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3Jhdml0YXRpb25hbCUyMER5bmFtaWNz">Gravitational Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SnVsaWE=">Julia <span class="quarto-category-count">(3)</span></div><div class="category" data-category="b2pz">ojs <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3JiaXRz">Orbits <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cDUuanM=">p5.js <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHM=">plots <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHRpbmc=">plotting <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -202,129 +202,139 @@ window.Quarto = {
 
 
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="SnVsaWElMkNHcmF2aXRhdGlvbmFsJTIwRHluYW1pY3MlMkNPcmJpdHM=" data-listing-date-sort="1776294000000" data-listing-file-modified-sort="1777859168666" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2538">
-<a href="./projects/grav_project/report.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/grav_project/images/orbit_survey_0.75_0.85.png" class="thumbnail-image card-img" style="height: 200px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-AS5523: Stellar Orbits and Numerical Integration
-</h5>
-<div class="card-text listing-description delink">
-<p>Computational Project exploring stellar orbits in galactic potentials.</p>
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="b2pzJTJDcGxvdHRpbmc=" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1777899635972" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
+<div class="thumbnail"><a href="./projects/p5js/observable.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/p5js/observable.html" class="no-external">Observable JS and Quarto</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/p5js/observable.html" class="no-external">
+<p>Experimenting with Observable JS within quarto documents.</p>
+</a></div>
 </div>
-<div class="card-attribution card-text-small end">
+<div class="metadata">
+<a href="./projects/p5js/observable.html" class="no-external">
+<div class="listing-date">
+May 4, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="cDUuanMlMkNwbG90dGluZw==" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1777917123143" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1491">
+<div class="thumbnail"><a href="./projects/p5js/processing.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/p5js/processing.html" class="no-external">P5 and Quarto</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/p5js/processing.html" class="no-external">
+<p>Experimenting with p5.js within quarto documents.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./projects/p5js/processing.html" class="no-external">
+<div class="listing-date">
+May 4, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859592218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="641">
+<div class="thumbnail"><a href="./projects/julia_sets/julia_sets.html" class="no-external">
+
+<img loading="lazy" src="./projects/julia_sets/images/julia_set.svg" class="thumbnail-image" style="height: 200px;">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/julia_sets/julia_sets.html" class="no-external">Mandelbrot and Julia Sets</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/julia_sets/julia_sets.html" class="no-external">
+<p>An exploration of plotting julia, mandelbrot, and multibrot sets.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./projects/julia_sets/julia_sets.html" class="no-external">
+<div class="listing-date">
+May 1, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="SnVsaWElMkNDb21wdXRhdGlvbmFsJTIwUGh5c2ljcw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859168320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
+<div class="thumbnail"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">
+
+<img loading="lazy" src="./projects/comp_phys_julia/images/orbit_survey_0.75_0.85.png" class="thumbnail-image" style="height: 200px;">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">Computational Physics with Julia</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">
+</a><p><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">Exploring Computational Physics with Julia. </a><a href="https://coltonquirk.github.io/comp_phys_julia/">View the book here.</a></p>
+</div>
+</div>
+<div class="metadata">
+<a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">
+<div class="listing-date">
+May 1, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="SnVsaWElMkNHcmF2aXRhdGlvbmFsJTIwRHluYW1pY3MlMkNPcmJpdHM=" data-listing-date-sort="1776294000000" data-listing-file-modified-sort="1777859168666" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2538">
+<div class="thumbnail"><a href="./projects/grav_project/report.html" class="no-external">
+
+<img loading="lazy" src="./projects/grav_project/images/orbit_survey_0.75_0.85.png" class="thumbnail-image" style="height: 200px;">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/grav_project/report.html" class="no-external">AS5523: Stellar Orbits and Numerical Integration</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/grav_project/report.html" class="no-external">
+<p>Computational Project exploring stellar orbits in galactic potentials.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./projects/grav_project/report.html" class="no-external">
 <div class="listing-date">
 Apr 16, 2026
 </div>
+</a>
 </div>
 </div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="UHl0aG9uJTJDQ29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=" data-listing-date-sort="1775170800000" data-listing-file-modified-sort="1777859168627" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3078">
-<a href="./projects/fluids_project/report.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/fluids_project/images/kh_final_plot.png" class="thumbnail-image card-img" style="height: 200px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-AS5524: Computational Project Report
-</h5>
-<div class="card-text listing-description delink">
+<div class="quarto-post image-right" data-index="5" data-categories="UHl0aG9uJTJDQ29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=" data-listing-date-sort="1775170800000" data-listing-file-modified-sort="1777859168627" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3078">
+<div class="thumbnail"><a href="./projects/fluids_project/report.html" class="no-external">
+
+<img loading="lazy" src="./projects/fluids_project/images/kh_final_plot.png" class="thumbnail-image" style="height: 200px;">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/fluids_project/report.html" class="no-external">AS5524: Computational Project Report</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/fluids_project/report.html" class="no-external">
 <p>Computational fluid dynamics project.</p>
+</a></div>
 </div>
-<div class="card-attribution card-text-small end">
+<div class="metadata">
+<a href="./projects/fluids_project/report.html" class="no-external">
 <div class="listing-date">
 Apr 3, 2026
 </div>
+</a>
 </div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNDb21wdXRhdGlvbmFsJTIwUGh5c2ljcw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859168320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
-<a href="./projects/comp_phys_julia/comp_phys_julia.html" class="quarto-grid-link">
-</a><div class="quarto-grid-item card h-100 card-left"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="quarto-grid-link">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/comp_phys_julia/images/orbit_survey_0.75_0.85.png" class="thumbnail-image card-img" style="height: 200px;">
-</p>
-</a><div class="card-body post-contents"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="quarto-grid-link">
-<h5 class="no-anchor card-title listing-title">
-Computational Physics with Julia
-</h5>
-</a><div class="card-text listing-description delink"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="quarto-grid-link">
-</a><p><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="quarto-grid-link">Exploring Computational Physics with Julia. </a><a href="https://coltonquirk.github.io/comp_phys_julia/">View the book here.</a></p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-May 1, 2026
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="g-col-1" data-index="3" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859592218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="641">
-<a href="./projects/julia_sets/julia_sets.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./projects/julia_sets/images/julia_set.svg" class="thumbnail-image card-img" style="height: 200px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Mandelbrot and Julia Sets
-</h5>
-<div class="card-text listing-description delink">
-<p>An exploration of plotting julia, mandelbrot, and multibrot sets.</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-May 1, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="b2pzJTJDcGxvdHRpbmc=" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1777899635972" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
-<a href="./projects/p5js/observable.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Observable JS and Quarto
-</h5>
-<div class="card-text listing-description delink">
-<p>Experimenting with Observable JS within quarto documents.</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-May 4, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="5" data-categories="cDUuanMlMkNwbG90dGluZw==" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1777914528997" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1520">
-<a href="./projects/p5js/processing.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-P5 and Quarto
-</h5>
-<div class="card-text listing-description delink">
-<p>Experimenting with p5.js within quarto documents.</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-May 4, 2026
-</div>
-</div>
-</div>
-</div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
