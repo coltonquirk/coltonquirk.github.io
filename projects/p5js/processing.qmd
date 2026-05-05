@@ -1,8 +1,8 @@
 ---
 title: "P5 and Quarto"
 description: "Experimenting with p5.js within quarto documents."
-date: 05-04-2026
-categories: [p5.js, plotting]
+date: 05-05-2026
+categories: [p5.js, plots]
 
 author: Colton Quirk
 institute: University of St Andrews
@@ -181,6 +181,7 @@ p5(s => {
 
 ```{ojs}
 viewof rule = Inputs.range([0, 255], {value: 90, step: 1, label: "Rule for Cellular Automata"});
+viewof canvasHeight = Inputs.range([width/2, 2*width], {value: width/2, step: 5, label: "Height/Number of Generations"});
 
 function ruleArr(n) {
   return (n & 0xFF).toString(2).padStart(8, '0').split('').map(Number);
@@ -193,7 +194,7 @@ p5(s => {
     let ruleset = ruleArr(rule);
 
     s.setup = function() {
-        s.createCanvas(width, width/2);
+        s.createCanvas(width, canvasHeight);
         s.background(255);
 
 
