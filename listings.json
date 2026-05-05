@@ -2,8 +2,8 @@
   {
     "listing": "/projects.html",
     "items": [
-      "/projects/p5js/observable.html",
       "/projects/p5js/processing.html",
+      "/projects/p5js/observable.html",
       "/projects/julia_sets/julia_sets.html",
       "/projects/comp_phys_julia/comp_phys_julia.html",
       "/projects/grav_project/report.html",
