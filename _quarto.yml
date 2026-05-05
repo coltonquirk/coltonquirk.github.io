@@ -14,9 +14,10 @@ format:
   html:
     theme:
       - cosmo 
-      - brand
+      - brand 
     css: styles.css
     toc: true
+    respect-user-color-scheme: true
 
 
 

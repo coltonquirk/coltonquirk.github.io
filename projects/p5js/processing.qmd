@@ -13,8 +13,6 @@ number-sections: true
 
 format: html
 
-execute:
-    echo: false 
 ---
 
 # p5.js inside Quarto via Observable JS
@@ -195,7 +193,7 @@ p5(s => {
     let ruleset = ruleArr(rule);
 
     s.setup = function() {
-        s.createCanvas(width, 499);
+        s.createCanvas(width, width/2);
         s.background(255);
 
 
@@ -207,7 +205,7 @@ p5(s => {
     };
 
     s.draw = function() {
-        for (let i = 1; i < cells.length-1; i++) {
+        for (let i = 0; i < cells.length; i++) {
             if (cells[i] === 1) {
                 s.fill(0);
                 s.square(i*w, generation*w, w);
@@ -215,10 +213,11 @@ p5(s => {
         }
 
         let nextgen = cells.slice();
-        for (let i = 1; i < cells.length; i++) {
-            let left = cells[i-1];
+        for (let i = 0; i < cells.length; i++) {
+            let left = cells[(i - 1 + cells.length) % cells.length];
             let me = cells[i];
-            let right = cells[i+1];
+            let right = cells[(i+1) % cells.length];
+
             nextgen[i] = s.rules(left, me, right);
         }
         cells = nextgen;
@@ -242,3 +241,5 @@ p5(s => {
 
 
 ## Sketch 6 - Creating Space
+
+
