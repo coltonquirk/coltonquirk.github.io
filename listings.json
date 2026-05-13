@@ -2,6 +2,7 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/random/random.html",
       "/projects/p5js/processing.html",
       "/projects/p5js/observable.html",
       "/projects/julia_sets/julia_sets.html",
