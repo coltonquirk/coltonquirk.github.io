@@ -23,7 +23,7 @@ engine: julia
 ```{julia}
 #| echo: false
 
-using CairoMakie, LaTeXStrings;
+using CairoMakie, LaTeXStrings, Random;
 ```
 
 # Sol LeWitt 
@@ -289,9 +289,68 @@ with_theme(wall_drawing_theme) do
 end;
 ```
 
-::: {#fig-11}
+::: {#fig-11 .column-screen}
 
 ![](images/wall_drawing_11.svg)
 
 Wall Drawing 11
+:::
+
+Test 
+
+## Wall Drawing #172
+
+Picked at random by Sam McDonald.
+
+```{julia}
+function wall_drawing_172()
+    fig = Figure(size = (800, 400))
+    ax = Axis(fig[1,1],
+                title = "Sol LeWitt Wall Drawing #172",
+             )
+    xlims!(ax, -1.1, 1.1)
+    ylims!(ax, -1.1, 1.1)
+
+    for i in 1:4 
+        scale_l = 0.5*rand()+0.5
+        scale_r = 0.5*rand()+0.5
+
+        if i == 1 
+            # Horizontal Line
+            lines!(ax, [-scale_l, scale_r], [0, 0], color="black")
+        elseif i == 2 
+            # Vertical Line
+            lines!(ax, [0, 0], [-scale_l, scale_r], color="black")
+        elseif i == 3 
+            # Diagonal Up
+            lines!(ax, [-scale_l, scale_r], [-scale_l, scale_r], color="black")
+        else 
+            # Diagonal Down
+            lines!(ax, [-scale_l, scale_r], [scale_l, -scale_r], color="black")
+        end
+    end
+
+    # Mark Center, Corners, and Midpoints
+    for x in [-1,0,1]
+        for y in [-1, 0, 1]
+            scatter!(ax, [x], [y], color="red")
+        end
+    end
+
+    save("images/wall_drawing_172.svg", fig)
+end;
+```
+
+```{julia}
+#| echo: false
+with_theme(wall_drawing_theme) do 
+    wall_drawing_172()
+end;
+```
+
+::: {#fig-172 .column-screen}
+
+![](images/wall_drawing_172.svg)
+
+Wall Drawing #172
 :::

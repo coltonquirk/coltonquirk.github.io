@@ -9,6 +9,7 @@ website:
         text: Home
       - about.qmd
       - projects.qmd
+  repo-url: https://github.com/coltonquirk
 
 format:
   html:
