@@ -14,11 +14,8 @@ website:
 format:
   html:
     theme:
-      - cosmo 
-      - brand 
+        light: united 
+        dark:  cyborg 
     css: styles.css
     toc: true
-    respect-user-color-scheme: true
-
-
 

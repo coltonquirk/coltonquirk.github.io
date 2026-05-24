@@ -1,0 +1,35 @@
+---
+title: "Testing Luxor"
+author: Colton Quirk
+date: 05/22/26
+date-format: long
+
+engine: julia
+julia:
+    exeflags: ["--project=@."]
+---
+
+# Testing Luxor 
+
+```{julia}
+#| label: fig-circles
+#| fig-cap: "Drawing an epitrochoid marked with circles."
+#| fig-alt: "An epitrochoid drawn with circles"
+#| code-fold: true
+
+using Luxor, Colors
+d = Drawing(800, 500, :svg)
+origin()
+rotate(pi/2)
+p = epitrochoid(120, 12, 48, vertices=true)
+L = 300
+ps = polysample(p, L)
+for (n, pt) in enumerate(ps)
+    sethue(HSB(rescale(n, 1, L, 0, 360), 0.7, 0.6))
+    circle(pt, 20sin(rescale(n, 1, L, 0, pi)), :fillpreserve)
+    sethue("black")
+    strokepath()
+end
+finish()
+display(d)
+```
