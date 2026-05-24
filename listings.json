@@ -2,6 +2,8 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/lorenz/lorenz.html",
+      "/projects/luxor_test/luxor_test.html",
       "/projects/sol_lewitt/sol_lewitt.html",
       "/projects/p5js/processing.html",
       "/projects/p5js/observable.html",

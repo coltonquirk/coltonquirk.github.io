@@ -39,10 +39,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4d9afe2b8d18ee9fa5d0d57b5ed4214d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fb9b1630077189e47818b434fd8c2a5d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f861835c959f3cf6c1861bca4e07387c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-c7d0cdd4b3f21d9aee3ca8e0434601bd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f861835c959f3cf6c1861bca4e07387c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -133,7 +137,169 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -165,6 +331,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -175,9 +342,10 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=">Computational Fluid Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMFBoeXNpY3M=">Computational Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3Jhdml0YXRpb25hbCUyMER5bmFtaWNz">Gravitational Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SnVsaWE=">Julia <span class="quarto-category-count">(4)</span></div><div class="category" data-category="b2pz">ojs <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3JiaXRz">Orbits <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cDUuanM=">p5.js <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHM=">plots <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cGxvdHRpbmc=">plotting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=">Computational Fluid Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcHV0YXRpb25hbCUyMFBoeXNpY3M=">Computational Physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3Jhdml0YXRpb25hbCUyMER5bmFtaWNz">Gravitational Dynamics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SnVsaWE=">Julia <span class="quarto-category-count">(4)</span></div><div class="category" data-category="b2pz">ojs <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3JiaXRz">Orbits <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cDUuanM=">p5.js <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGxvdHM=">plots <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cGxvdHRpbmc=">plotting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -204,7 +372,62 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1778626800000" data-listing-file-modified-sort="1778716260418" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1463">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1779402529820" data-listing-reading-time-sort="2" data-listing-word-count-sort="268">
+<div class="thumbnail"><a href="./projects/lorenz/lorenz.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/lorenz/lorenz.html" class="no-external">Lorenz Attractor</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/lorenz/lorenz.html" class="no-external">
+
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><span class="im">using</span> <span class="bu">GLMakie</span>, <span class="bu">DataStructures</span></span></code></pre></div></div>
+
+</a></div>
+</div>
+<div class="metadata">
+<a href="./projects/lorenz/lorenz.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1779404400000" data-listing-file-modified-sort="1779484544703" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="66">
+<div class="thumbnail"><a href="./projects/luxor_test/luxor_test.html" class="no-external">
+
+<p class="card-img-top"><img src="projects/luxor_test/luxor_test_files/figure-html/fig-circles-output-2.svg" alt="An epitrochoid drawn with circles" style="height: 200px;"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./projects/luxor_test/luxor_test.html" class="no-external">Testing Luxor</a>
+</h3>
+<div class="delink listing-description"><a href="./projects/luxor_test/luxor_test.html" class="no-external">
+
+
+<div id="cell-fig-circles" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><span class="im">using</span> <span class="bu">Luxor</span>, <span class="bu">Colors</span></span>
+<span id="cb1-2">d <span class="op">=</span> <span class="fu">Drawing</span>(<span class="fl">800</span>, <span class="fl">500</span>, <span class="op">:</span>svg)</span>
+<span id="cb1-3"><span class="fu">origin</span>()</span>
+<span id="cb1-4"><span class="fu">rotate</span>(<span class="cn">pi</span><span class="op">/</span><span class="fl">2</span>)</span>
+<span id="cb1-5">p <span class="op">=</span> <span class="fu">epitrochoid</span>(<span class="fl">120</span>, <span class="fl">12</span>, <span class="fl">48</span>, vertices<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb1-6">L <span class="op">=</span> <span class="fl">300</span></span>
+<span id="cb1-7">ps <span class="op">=</span> <span class="fu">polysample</span>(p, L)</span>
+<span id="cb1-8"><span class="cf">for</span> (n, pt) <span class="kw">in</span> <span class="fu">enumer…</span></span><span id="cb1-9"><span class="fu"></span><span class="fu"></span><span class="fu"></span><span class="fl"></span><span class="fl"></span><span class="fl"></span><span class="fl"></span><span class="fl"></span></span><span id="cb1-10"><span class="fu"></span><span class="fl"></span><span class="fu"></span><span class="fu"></span><span class="fl"></span><span class="fl"></span><span class="cn"></span><span class="op"></span></span><span id="cb1-11"><span class="fu"></span><span class="st"></span></span><span id="cb1-12"><span class="fu"></span></span><span id="cb1-13"><span class="cf"></span></span><span id="cb1-14"><span class="fu"></span></span><span id="cb1-15"><span class="fu"></span></span></code></pre></div></div></details><div class="cell-output cell-output-stdout"><pre><code></code></pre></div><div class="cell-output cell-output-display"><div id="fig-circles" class="quarto-float quarto-figure quarto-figure-center anchored" alt="An epitrochoid drawn with circles"><figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-circles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"></div><figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-circles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"></figcaption></figure></div></div></div>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./projects/luxor_test/luxor_test.html" class="no-external">
+<div class="listing-date">
+May 22, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1778626800000" data-listing-file-modified-sort="1778716260418" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1463">
 <div class="thumbnail"><a href="./projects/sol_lewitt/sol_lewitt.html" class="no-external">
 
 <img loading="lazy" src="./projects/sol_lewitt/images/wall_drawing_118.svg" class="thumbnail-image" style="height: 200px;">
@@ -226,7 +449,7 @@ May 13, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="cDUuanMlMkNwbG90cw==" data-listing-date-sort="1777935600000" data-listing-file-modified-sort="1778018259053" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1511">
+<div class="quarto-post image-right" data-index="3" data-categories="cDUuanMlMkNwbG90cw==" data-listing-date-sort="1777935600000" data-listing-file-modified-sort="1778018259053" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1511">
 <div class="thumbnail"><a href="./projects/p5js/processing.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
@@ -248,7 +471,7 @@ May 5, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="b2pzJTJDcGxvdHRpbmc=" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1778013301919" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
+<div class="quarto-post image-right" data-index="4" data-categories="b2pzJTJDcGxvdHRpbmc=" data-listing-date-sort="1777849200000" data-listing-file-modified-sort="1778013301919" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="498">
 <div class="thumbnail"><a href="./projects/p5js/observable.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" style="height: 200px;">&nbsp;</div>
@@ -270,7 +493,7 @@ May 4, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859592218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="641">
+<div class="quarto-post image-right" data-index="5" data-categories="SnVsaWElMkNwbG90cw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859592218" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="641">
 <div class="thumbnail"><a href="./projects/julia_sets/julia_sets.html" class="no-external">
 
 <img loading="lazy" src="./projects/julia_sets/images/julia_set.svg" class="thumbnail-image" style="height: 200px;">
@@ -292,7 +515,7 @@ May 1, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="SnVsaWElMkNDb21wdXRhdGlvbmFsJTIwUGh5c2ljcw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859168320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
+<div class="quarto-post image-right" data-index="6" data-categories="SnVsaWElMkNDb21wdXRhdGlvbmFsJTIwUGh5c2ljcw==" data-listing-date-sort="1777590000000" data-listing-file-modified-sort="1777859168320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="12">
 <div class="thumbnail"><a href="./projects/comp_phys_julia/comp_phys_julia.html" class="no-external">
 
 <img loading="lazy" src="./projects/comp_phys_julia/images/orbit_survey_0.75_0.85.png" class="thumbnail-image" style="height: 200px;">
@@ -314,7 +537,7 @@ May 1, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="SnVsaWElMkNHcmF2aXRhdGlvbmFsJTIwRHluYW1pY3MlMkNPcmJpdHM=" data-listing-date-sort="1776294000000" data-listing-file-modified-sort="1778717504342" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2538">
+<div class="quarto-post image-right" data-index="7" data-categories="SnVsaWElMkNHcmF2aXRhdGlvbmFsJTIwRHluYW1pY3MlMkNPcmJpdHM=" data-listing-date-sort="1776294000000" data-listing-file-modified-sort="1778717504342" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2538">
 <div class="thumbnail"><a href="./projects/grav_project/report.html" class="no-external">
 
 <img loading="lazy" src="./projects/grav_project/images/orbit_survey_0.75_0.85.png" class="thumbnail-image" style="height: 200px;">
@@ -336,7 +559,7 @@ Apr 16, 2026
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="UHl0aG9uJTJDQ29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=" data-listing-date-sort="1775170800000" data-listing-file-modified-sort="1777859168627" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3078">
+<div class="quarto-post image-right" data-index="8" data-categories="UHl0aG9uJTJDQ29tcHV0YXRpb25hbCUyMEZsdWlkJTIwRHluYW1pY3M=" data-listing-date-sort="1775170800000" data-listing-file-modified-sort="1777859168627" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3078">
 <div class="thumbnail"><a href="./projects/fluids_project/report.html" class="no-external">
 
 <img loading="lazy" src="./projects/fluids_project/images/kh_final_plot.png" class="thumbnail-image" style="height: 200px;">
@@ -363,6 +586,19 @@ Apr 3, 2026
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
