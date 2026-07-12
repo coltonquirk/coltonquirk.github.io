@@ -2,4 +2,8 @@
 title: "About"
 ---
 
-About this site
+This page is an exploration of physics, astrophysics,
+computational methods related to both, computer graphics,
+animation, education, and more.
+Essentially whatever interests me in the moment.
+
