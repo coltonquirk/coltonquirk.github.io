@@ -98,11 +98,11 @@
     "text": "viewof rule = Inputs.range([0, 255], {value: 90, step: 1, label: \"Rule for Cellular Automata\"});\nviewof canvasHeight = Inputs.range([width/2, 2*width], {value: width/2, step: 5, label: \"Height/Number of Generations\"});\n\nfunction ruleArr(n) {\n  return (n & 0xFF).toString(2).padStart(8, '0').split('').map(Number);\n};\n\np5(s =&gt; {\n    let cells;\n    let generation = 0;\n    let w = 5;\n    let ruleset = ruleArr(rule);\n\n    s.setup = function() {\n        s.createCanvas(width, canvasHeight);\n        s.background(255);\n\n\n        cells = new Array(s.floor(width/w)); \n        for (let i = 0; i &lt; cells.length; i++) {\n            cells[i] = 0;\n        }\n        cells[s.floor(cells.length / 2)] = 1;\n    };\n\n    s.draw = function() {\n        for (let i = 0; i &lt; cells.length; i++) {\n            if (cells[i] === 1) {\n                s.fill(0);\n                s.square(i*w, generation*w, w);\n            }\n        }\n\n        let nextgen = cells.slice();\n        for (let i = 0; i &lt; cells.length; i++) {\n            let left = cells[(i - 1 + cells.length) % cells.length];\n            let me = cells[i];\n            let right = cells[(i+1) % cells.length];\n\n            nextgen[i] = s.rules(left, me, right);\n        }\n        cells = nextgen;\n        generation++;\n\n        if (generation * w &gt; s.height) {\n            s.noLoop();\n        }\n    };\n\n    s.rules = function(a, b, c) {\n        let s = \"\" + a + b + c;\n        let index = parseInt(s, 2);\n        // invert the index so 0 becomes 7, 1 becomes 6, and so on.\n        return ruleset[7 - index];\n    }\n})"
   },
   {
-    "objectID": "projects/0007_luxor_test/luxor_test.html",
-    "href": "projects/0007_luxor_test/luxor_test.html",
-    "title": "Testing Luxor",
+    "objectID": "projects/0010_wgltest/wgltest.html",
+    "href": "projects/0010_wgltest/wgltest.html",
+    "title": "WGLTest",
     "section": "",
-    "text": "Testing Luxor\n\n\nCode\nusing Luxor, Colors\nd = Drawing(800, 500, :svg)\norigin()\nrotate(pi/2)\np = epitrochoid(120, 12, 48, vertices=true)\nL = 300\nps = polysample(p, L)\nfor (n, pt) in enumerate(ps)\n    sethue(HSB(rescale(n, 1, L, 0, 360), 0.7, 0.6))\n    circle(pt, 20sin(rescale(n, 1, L, 0, pi)), :fillpreserve)\n    sethue(\"black\")\n    strokepath()\nend\nfinish()\ndisplay(d)\n\n\n Luxor drawing: (type = :svg, width = 800.0, height = 500.0, location = in memory)\n\n\n\n\n\n\n\n\nFigure 1: Drawing an epitrochoid marked with circles."
+    "text": "using WGLMakie\n\n\nx = 0:1e-2:2pi\ny = sin.(x)\n\nfig = Figure()\nax = Axis(fig[1,1], xlabel=\"x\", ylabel=\"y\")\nlines!(x, y)\nfig"
   },
   {
     "objectID": "index.html",
@@ -110,6 +110,13 @@
     "title": "coltonquirk",
     "section": "",
     "text": "Welcome to my page!"
+  },
+  {
+    "objectID": "projects/0007_luxor_test/luxor_test.html",
+    "href": "projects/0007_luxor_test/luxor_test.html",
+    "title": "Testing Luxor",
+    "section": "",
+    "text": "Testing Luxor\n\n\nCode\nusing Luxor, Colors\nd = Drawing(800, 500, :svg)\norigin()\nrotate(pi/2)\np = epitrochoid(120, 12, 48, vertices=true)\nL = 300\nps = polysample(p, L)\nfor (n, pt) in enumerate(ps)\n    sethue(HSB(rescale(n, 1, L, 0, 360), 0.7, 0.6))\n    circle(pt, 20sin(rescale(n, 1, L, 0, pi)), :fillpreserve)\n    sethue(\"black\")\n    strokepath()\nend\nfinish()\ndisplay(d)\n\n\n Luxor drawing: (type = :svg, width = 800.0, height = 500.0, location = in memory)\n\n\n\n\n\n\n\n\nFigure 1: Drawing an epitrochoid marked with circles."
   },
   {
     "objectID": "projects/0005_p5js/observable.html",
@@ -249,6 +256,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Lorenz Attractor\n\n\n\n\n\n\n\n\nJul 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTesting Luxor\n\n\n\n\n\n\n\n\nMay 22, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nExploring the Art of Sol LeWitt\n\n\nTranslating some of Sol LeWitt’s beatuful concept art to Julia code.\n\n\n\n\n\nMay 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nP5 and Quarto\n\n\nExperimenting with p5.js within quarto documents.\n\n\n\n\n\nMay 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nObservable JS and Quarto\n\n\nExperimenting with Observable JS within quarto documents.\n\n\n\n\n\nMay 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\n\n\nApr 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "WGLTest\n\n\n\n\n\n\n\n\nJul 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nLorenz Attractor\n\n\n\n\n\n\n\n\nJul 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTesting Luxor\n\n\n\n\n\n\n\n\nMay 22, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nExploring the Art of Sol LeWitt\n\n\nTranslating some of Sol LeWitt’s beatuful concept art to Julia code.\n\n\n\n\n\nMay 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nP5 and Quarto\n\n\nExperimenting with p5.js within quarto documents.\n\n\n\n\n\nMay 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nObservable JS and Quarto\n\n\nExperimenting with Observable JS within quarto documents.\n\n\n\n\n\nMay 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\n\n\nApr 3, 2026\n\n\n\n\n\nNo matching items"
   }
 ]

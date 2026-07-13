@@ -2,6 +2,7 @@
   {
     "listing": "/projects.html",
     "items": [
+      "/projects/0010_wgltest/wgltest.html",
       "/projects/0008_lorenz/lorenz.html",
       "/projects/0007_luxor_test/luxor_test.html",
       "/projects/0006_sol_lewitt/sol_lewitt.html",
