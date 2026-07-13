@@ -1,0 +1,22 @@
+---
+title: "WGLTest"
+author: Colton Quirk
+date: 07/13/26
+date-format: long
+
+engine: julia
+---
+
+```{julia}
+using WGLMakie
+```
+
+```{julia}
+x = 0:1e-2:2pi
+y = sin.(x)
+
+fig = Figure()
+ax = Axis(fig[1,1], xlabel="x", ylabel="y")
+lines!(x, y)
+fig
+```
