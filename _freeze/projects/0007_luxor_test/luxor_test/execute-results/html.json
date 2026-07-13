@@ -1,0 +1,12 @@
+{
+  "hash": "252485c9ae674dcf1c2560b3f1003839",
+  "result": {
+    "engine": "julia",
+    "markdown": "---\ntitle: \"Testing Luxor\"\nauthor: Colton Quirk\ndate: 05/22/26\ndate-format: long\n\nengine: julia\njulia:\n    exeflags: [\"--project=@.\"]\n---\n\n# Testing Luxor\n\n::: {#cell-fig-circles .cell execution_count=1}\n``` {.julia .cell-code code-fold=\"true\"}\nusing Luxor, Colors\nd = Drawing(800, 500, :svg)\norigin()\nrotate(pi/2)\np = epitrochoid(120, 12, 48, vertices=true)\nL = 300\nps = polysample(p, L)\nfor (n, pt) in enumerate(ps)\n    sethue(HSB(rescale(n, 1, L, 0, 360), 0.7, 0.6))\n    circle(pt, 20sin(rescale(n, 1, L, 0, pi)), :fillpreserve)\n    sethue(\"black\")\n    strokepath()\nend\nfinish()\ndisplay(d)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n Luxor drawing: (type = :svg, width = 800.0, height = 500.0, location = in memory)\n```\n:::\n\n::: {.cell-output .cell-output-display}\n![Drawing an epitrochoid marked with circles.](luxor_test_files/figure-html/fig-circles-output-2.svg){#fig-circles fig-alt='An epitrochoid drawn with circles'}\n:::\n:::\n\n\n\n",
+    "supporting": [
+      "luxor_test_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "hash": "785d3164475794fb67079f740edc6592",
+  "result": {
+    "engine": "julia",
+    "markdown": "---\ntitle: \"Lorenz Attractor\"\nauthor: Colton Quirk\ndate: 07/13/26\ndate-format: long\n\nengine: julia\n---\n\n::: {#2 .cell execution_count=1}\n``` {.julia .cell-code}\nusing GLMakie, DataStructures\n```\n:::\n\n\n\n::: {#4 .cell execution_count=1}\n``` {.julia .cell-code}\nBase.@kwdef mutable struct Lorenz\n    dt::Float64 = 0.01\n    sigma::Float64 = 10\n    rho::Float64 = 28\n    beta::Float64 = 8/3\n    x::Float64 = 1\n    y::Float64 = 1\n    z::Float64 = 1\nend\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\nLorenz\n```\n:::\n:::\n\n\n\n::: {#6 .cell execution_count=1}\n``` {.julia .cell-code}\nfunction step!(l::Lorenz)\n    dx = l.sigma * (l.y - l.x)\n    dy = l.x * (l.rho - l.z)\n    dz = l.x * l.y - l.beta * l.z\n    l.x += l.dt * dx\n    l.y += l.dt * dy\n    l.z += l.dt * dz\n    Point3f(l.x, l.y, l.z)\nend\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\nstep! (generic function with 1 method)\n```\n:::\n:::\n\n\n\n::: {#8 .cell execution_count=1}\n``` {.julia .cell-code}\nattractor = Lorenz()\npoints = Observable(CircularBuffer{Point3f}(200))\ncolors = Observable(Int[])\nset_theme!(theme_black())\n```\n:::\n\n\n\n::: {#10 .cell execution_count=1}\n``` {.julia .cell-code}\nfig, ax, l = lines(points, color = colors,\n    colormap=:inferno, transparency=true,\n    axis = (; type=Axis3, protrusions=(0, 0, 0, 0),\n            viewmode=:fit, limits=(-30, 30, -30, 30, 0, 50)))\n\nmenu = Menu(fig, options=[\"viridis\", \"inferno\", \"magma\", \"plasma\"])\n\non(menu.selection) do cmap \n    l.colormap = cmap\nend\nnotify(menu.selection)\n\nrun = Button(fig[2, 1]; label=\"run\", tellwidth=false)\nisrunning = Observable(false)\non(run.clicks) do clicks; isrunning[] = !isrunning[]; end\non(run.clicks) do clicks\n    @async while isrunning[]\n        isopen(fig.scene) || break\n        push!(points[], step!(attractor))\n        push!(colors[], min(length(points[]), 100))\n        l.colorrange = (0, min(length(points[]), 100))\n        colors[] = colors[]\n        points[] = points[]\n        sleep(0.001)\n    end\nend \n\n\ndisplay(fig)\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\nGLMakie.Screen(...)\n```\n:::\n:::\n\n\n\n",
+    "supporting": [
+      "lorenz_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
