@@ -1,0 +1,16 @@
+{
+  "hash": "fce0165bf1ac967e4b24e8435d25e3cd",
+  "result": {
+    "engine": "julia",
+    "markdown": "---\ntitle: \"WGLTest\"\nauthor: Colton Quirk\ndate: 07/13/26\ndate-format: long\n\nengine: julia\n---\n\n::: {#2 .cell execution_count=1}\n``` {.julia .cell-code}\nusing WGLMakie\n```\n:::\n\n\n\n::: {#4 .cell execution_count=1}\n``` {.julia .cell-code}\nx = 0:1e-2:2pi\ny = sin.(x)\n\nfig = Figure()\nax = Axis(fig[1,1], xlabel=\"x\", ylabel=\"y\")\nlines!(x, y)\nfig\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```{=html}\n<div class=\"bonito-fragment\" id=\"cf29a835-9116-4507-8aa2-92da74ca6413\" data-jscall-id=\"root\"><div><script src=\"http://localhost:9384/assets/3292c6ce5f193df043f14cc233f69733d208c30d-Bonito.bundled.js?b4727ff9068f2529964cc80da8155a625f39abb5\" type=\"module\"></script><style></style><style>.wglmakie-spinner {\n  left: 50%;\n  z-index: 1000;\n  height: 40px;\n  position: absolute;\n  border-radius: 50%;\n  border: 4px solid rgba(0, 0, 0, 0.1);\n  animation: wglmakie-spin 1.0s linear infinite;\n  top: 50%;\n  border-top: 4px solid currentColor;\n  width: 40px;\n  pointer-events: none;\n  transform: translate(-50%, -50%);\n}\n@keyframes wglmakie-spin {\n  0% {\n    transform: translate(-50%, -50%) rotate(0deg);\n  }\n  100% {\n    transform: translate(-50%, -50%) rotate(360deg);\n  }\n}\n</style></div><div><script type=\"module\">Bonito.init_session(\"cf29a835-9116-4507-8aa2-92da74ca6413\", Bonito.fetch_binary('http://localhost:9384/assets/91a92084b99690a4f72a1907062ff3aefd63cae9-310619700954914241.bin'), \"root\", false);\n</script><div style=\"width: 100%; height: 100%; position: relative;\" data-jscall-id=\"1\"><canvas height=\"480px\" data-jp-suppress-context-menu style=\"display: block\" data-jscall-id=\"2\" data-lm-suppress-shortcuts=\"true\" width=\"672px\" tabindex=\"0\"></canvas><div class=\"wglmakie-spinner\" data-jscall-id=\"3\"></div></div></div></div>\n```\n:::\n:::\n\n\n\n",
+    "supporting": [
+      "wgltest_files"
+    ],
+    "filters": [],
+    "includes": {
+      "include-in-header": [
+        "<script src=\"https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js\" integrity=\"sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx\" crossorigin=\"anonymous\"></script>\n<script src=\"https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js\" integrity=\"sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2\" crossorigin=\"anonymous\" data-relocate-top=\"true\"></script>\n<script type=\"application/javascript\">define('jquery', [],function() {return window.jQuery;})</script>\n"
+      ]
+    }
+  }
+}
