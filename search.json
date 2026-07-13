@@ -105,6 +105,13 @@
     "text": "Testing Luxor\n\n\nCode\nusing Luxor, Colors\nd = Drawing(800, 500, :svg)\norigin()\nrotate(pi/2)\np = epitrochoid(120, 12, 48, vertices=true)\nL = 300\nps = polysample(p, L)\nfor (n, pt) in enumerate(ps)\n    sethue(HSB(rescale(n, 1, L, 0, 360), 0.7, 0.6))\n    circle(pt, 20sin(rescale(n, 1, L, 0, pi)), :fillpreserve)\n    sethue(\"black\")\n    strokepath()\nend\nfinish()\ndisplay(d)\n\n\n Luxor drawing: (type = :svg, width = 800.0, height = 500.0, location = in memory)\n\n\n\n\n\n\n\n\nFigure 1: Drawing an epitrochoid marked with circles."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "coltonquirk",
+    "section": "",
+    "text": "Welcome to my page!"
+  },
+  {
     "objectID": "projects/0005_p5js/observable.html",
     "href": "projects/0005_p5js/observable.html",
     "title": "Observable JS and Quarto",
@@ -242,6 +249,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Lorenz Attractor\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTesting Luxor\n\n\n\n\n\n\n\n\nMay 22, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nExploring the Art of Sol LeWitt\n\n\nTranslating some of Sol LeWitt’s beatuful concept art to Julia code.\n\n\n\n\n\nMay 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nP5 and Quarto\n\n\nExperimenting with p5.js within quarto documents.\n\n\n\n\n\nMay 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nObservable JS and Quarto\n\n\nExperimenting with Observable JS within quarto documents.\n\n\n\n\n\nMay 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\n\n\nApr 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Lorenz Attractor\n\n\n\n\n\n\n\n\nJul 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTesting Luxor\n\n\n\n\n\n\n\n\nMay 22, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nExploring the Art of Sol LeWitt\n\n\nTranslating some of Sol LeWitt’s beatuful concept art to Julia code.\n\n\n\n\n\nMay 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nP5 and Quarto\n\n\nExperimenting with p5.js within quarto documents.\n\n\n\n\n\nMay 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nObservable JS and Quarto\n\n\nExperimenting with Observable JS within quarto documents.\n\n\n\n\n\nMay 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nComputational Physics with Julia\n\n\nExploring Computational Physics with Julia. View the book here.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMandelbrot and Julia Sets\n\n\nAn exploration of plotting julia, mandelbrot, and multibrot sets.\n\n\n\n\n\nMay 1, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5523: Stellar Orbits and Numerical Integration\n\n\nComputational Project exploring stellar orbits in galactic potentials.\n\n\n\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAS5524: Computational Project Report\n\n\nComputational fluid dynamics project.\n\n\n\n\n\nApr 3, 2026\n\n\n\n\n\nNo matching items"
   }
 ]
