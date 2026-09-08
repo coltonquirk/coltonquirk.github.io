@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://coltonquirk.github.io/about.html</loc>
-    <lastmod>2026-07-12T21:32:30.644Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/projects/0004_julia_sets/julia_sets.html</loc>
-    <lastmod>2026-05-04T01:53:12.218Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/projects/0006_sol_lewitt/sol_lewitt.html</loc>
-    <lastmod>2026-05-13T23:51:00.418Z</lastmod>
+    <loc>https://coltonquirk.github.io/index.html</loc>
+    <lastmod>2026-09-08T06:48:02.392Z</lastmod>
   </url>
   <url>
     <loc>https://coltonquirk.github.io/projects/0008_lorenz/lorenz.html</loc>
-    <lastmod>2026-07-12T23:25:50.233Z</lastmod>
+    <lastmod>2026-09-08T06:42:53.213Z</lastmod>
   </url>
   <url>
-    <loc>https://coltonquirk.github.io/projects/0005_p5js/processing.html</loc>
-    <lastmod>2026-05-05T21:57:39.053Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/projects/0010_wgltest/wgltest.html</loc>
-    <lastmod>2026-07-13T09:50:05.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/index.html</loc>
-    <lastmod>2026-07-13T09:20:49.377Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/projects/0007_luxor_test/luxor_test.html</loc>
-    <lastmod>2026-05-22T21:15:44.703Z</lastmod>
+    <loc>https://coltonquirk.github.io/projects/0006_sol_lewitt/sol_lewitt.html</loc>
+    <lastmod>2026-09-08T06:42:53.213Z</lastmod>
   </url>
   <url>
     <loc>https://coltonquirk.github.io/projects/0005_p5js/observable.html</loc>
-    <lastmod>2026-05-05T20:35:01.919Z</lastmod>
-  </url>
-  <url>
-    <loc>https://coltonquirk.github.io/projects/0002_grav_project/report.html</loc>
-    <lastmod>2026-05-14T00:11:44.342Z</lastmod>
+    <lastmod>2026-09-08T06:42:53.212Z</lastmod>
   </url>
   <url>
     <loc>https://coltonquirk.github.io/projects/0003_comp_phys_julia/comp_phys_julia.html</loc>
-    <lastmod>2026-05-04T01:46:08.320Z</lastmod>
+    <lastmod>2026-09-08T06:42:53.211Z</lastmod>
   </url>
   <url>
     <loc>https://coltonquirk.github.io/projects/0001_fluids_project/report.html</loc>
-    <lastmod>2026-05-04T01:46:08.627Z</lastmod>
+    <lastmod>2026-09-08T06:42:53.205Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/about.html</loc>
+    <lastmod>2026-09-08T06:42:53.205Z</lastmod>
   </url>
   <url>
     <loc>https://coltonquirk.github.io/projects.html</loc>
-    <lastmod>2026-05-04T17:40:21.346Z</lastmod>
+    <lastmod>2026-09-08T06:42:53.205Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/projects/0002_grav_project/report.html</loc>
+    <lastmod>2026-09-08T06:42:53.208Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/projects/0004_julia_sets/julia_sets.html</loc>
+    <lastmod>2026-09-08T06:42:53.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/projects/0005_p5js/processing.html</loc>
+    <lastmod>2026-09-08T06:42:53.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/projects/0007_luxor_test/luxor_test.html</loc>
+    <lastmod>2026-09-08T06:42:53.213Z</lastmod>
+  </url>
+  <url>
+    <loc>https://coltonquirk.github.io/projects/0010_wgltest/wgltest.html</loc>
+    <lastmod>2026-09-08T06:42:53.214Z</lastmod>
   </url>
 </urlset>
