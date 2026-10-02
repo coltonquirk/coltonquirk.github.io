@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Colton Quirk",
     "section": "",
-    "text": "Welcome to my page! My name is Colton Quirk."
+    "text": "Welcome to my page! My name is Colton Quirk. This page is an exploration of physics, astrophysics, computational methods related to both, computer graphics, animation, education, and more."
   },
   {
     "objectID": "projects/0007_luxor_test/luxor_test.html",
@@ -144,7 +144,21 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This page is an exploration of physics, astrophysics, computational methods related to both, computer graphics, animation, education, and more."
+    "text": "Colton Quirk is a person."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nUniversity of St Andrews | St Andrews, Scotland MSc in Astrophyics | September 2025 - August 2026\nUniversity of Arizona, Honors College | Tucson, Arizona B.S. in Physics and Astronomy | Minor: Computer Science | August 2021 - May 2025"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About",
+    "section": "Experience",
+    "text": "Experience\nNational Radio Astronomy Observatory | Research Intern | May 2024 - August 2024\nArizona Space Grant Consortium | Research Intern | September 2023 - May 2024\nSteward Observatory | Telescope Operator | September 2022 - May 2025\nMontana Learning Center | Telescope Operator | Summers 2021 - 2023"
   },
   {
     "objectID": "projects/0001_fluids_project/report.html",
