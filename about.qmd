@@ -1,8 +1,30 @@
 ---
 title: "About"
+about:
+    template: jolla # jolla trestles solana marque broadside
+    image: Quirk_Headshot.jpg
+    links:
+        - icon: github
+          text: Github
+          href: https://github.com/coltonquirk
 ---
 
-This page is an exploration of physics, astrophysics,
-computational methods related to both, computer graphics,
-animation, education, and more.
+Colton Quirk is a person.
 
+## Education
+
+University of St Andrews | St Andrews, Scotland
+MSc in Astrophyics | September 2025 - August 2026
+
+University of Arizona, Honors College | Tucson, Arizona
+B.S. in Physics and Astronomy | Minor: Computer Science | August 2021 - May 2025
+
+## Experience
+
+National Radio Astronomy Observatory | Research Intern | May 2024 - August 2024
+
+Arizona Space Grant Consortium | Research Intern | September 2023 - May 2024
+
+Steward Observatory | Telescope Operator | September 2022 - May 2025
+
+Montana Learning Center | Telescope Operator | Summers 2021 - 2023
