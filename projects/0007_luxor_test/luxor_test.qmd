@@ -5,11 +5,11 @@ date: 05/22/26
 date-format: long
 
 engine: julia
-julia:
-    exeflags: ["--project=@."]
 ---
 
 # Testing Luxor 
+
+Working with the example `Luxor` image to test its graphics capabilities.
 
 ```{julia}
 #| label: fig-circles

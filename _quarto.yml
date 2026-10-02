@@ -9,13 +9,19 @@ website:
         text: Home
       - about.qmd
       - projects.qmd
+      - tutoring.qmd
+      - resume.qmd
   repo-url: https://github.com/coltonquirk
 
 format:
   html:
     theme:
-        light: flatly 
-        dark:  darkly 
+        light: 
+          - flatly 
+          # - _extensions/catppuccin/latte.scss
+        dark:
+          - darkly 
+          # - _extensions/catppuccin/mocha.scss
     css: styles.css
     toc: true
 
