@@ -3,6 +3,7 @@ project:
 
 website:
   title: "coltonquirk"
+  favicon: "logo.png"
   navbar:
     left:
       - href: index.qmd
