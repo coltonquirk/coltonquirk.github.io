@@ -1,12 +1,5 @@
 ---
 title: "About"
-about:
-    template: jolla # jolla trestles solana marque broadside
-    image: Quirk_Headshot.jpg
-    links:
-        - icon: github
-          text: Github
-          href: https://github.com/coltonquirk
 ---
 
 Colton Quirk is a person.

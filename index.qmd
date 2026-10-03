@@ -1,8 +1,16 @@
 ---
 title: "Colton Quirk"
+about:
+    template: jolla # jolla trestles solana marque broadside
+    image: Quirk_Headshot.jpg
+    links:
+        - icon: github
+          text: Github
+          href: https://github.com/coltonquirk
 ---
 
 Welcome to my page! My name is Colton Quirk.
+
 This page is an exploration of physics, astrophysics,
 computational methods related to both, computer graphics,
 animation, education, and more.

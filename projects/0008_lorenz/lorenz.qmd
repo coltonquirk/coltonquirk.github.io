@@ -11,12 +11,26 @@ engine: julia
 using GLMakie, DataStructures
 ```
 
+# An exploration of the Lorenz Attractor and Makie Animation
+
+The lorenz attractor is a beautiful example of chaotic systems.
+These are traditionally defined as systems that are deterministic but very small differences
+in initial conditions lead to vastly different, seemingly unpredictable, outcomes.
+They are defined by the following differential equations:
+
+\begin{align}
+\frac{dx}{dt} &= \sigma (y - x) \\
+\frac{dy}{dt} &= x (\rho - z) - y \\
+\frac{dz}{dt} &= x y - \beta z
+\end{align}
+
+
 ```{julia}
 Base.@kwdef mutable struct Lorenz
     dt::Float64 = 0.01
-    sigma::Float64 = 10
-    rho::Float64 = 28
-    beta::Float64 = 8/3
+    σ::Float64 = 10
+    ρ::Float64 = 28
+    β::Float64 = 8/3
     x::Float64 = 1
     y::Float64 = 1
     z::Float64 = 1
@@ -25,9 +39,9 @@ end
 
 ```{julia}
 function step!(l::Lorenz)
-    dx = l.sigma * (l.y - l.x)
-    dy = l.x * (l.rho - l.z)
-    dz = l.x * l.y - l.beta * l.z
+    dx = l.σ * (l.y - l.x)
+    dy = l.x * (l.ρ- l.z) - l.y
+    dz = l.x * l.y - l.β * l.z
     l.x += l.dt * dx
     l.y += l.dt * dy
     l.z += l.dt * dz
@@ -69,8 +83,6 @@ on(run.clicks) do clicks
         sleep(0.001)
     end
 end 
-
-
 display(fig)
 ```
 
