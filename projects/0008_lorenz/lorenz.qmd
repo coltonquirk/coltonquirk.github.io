@@ -85,6 +85,7 @@ function plot_lorenz(; fname="lorenz.mp4", hist_length=200, N_frames=1000, color
         l.colorrange = (0, min(length(points[]), 100))
         colors[] = colors[]
         points[] = points[]
+        ax.azimuth[] = 1.7pi + 0.3 * sin(2pi * frame / N_frames)
     end
 end
 ```
@@ -166,14 +167,14 @@ function multi_lorenz(; fname="multi_lorenz.mp4", npoints=300, N_frames=1000, fr
     blues = [get(ColorSchemes.Blues, t) for t in LinRange(0.5, 0.8, num)]
     cmaps = [fade_colormap(c) for c in blues]
 
-    fig = Figure(size=(10inch, 7inch), fontsize=24pt)
+    fig = Figure(size=(10inch, 7inch), fontsize=18pt)
     ax = Axis3(fig[1,2],
-               protrusions=(0, 0, 0, 0),
+               protrusions=(0, 60, 0, 0),
                viewmode=:fit,
-               limits = (-30,30,-30,30,0,50)
+               limits = (-30,30,-30,30,0,50),
                )
     Label(fig[1, :, Top()], "Lorenz Attractor",
-          fontsize=30,
+          fontsize=30pt,
           color=:white,
           valign=:bottom,
           )
@@ -185,13 +186,13 @@ function multi_lorenz(; fname="multi_lorenz.mp4", npoints=300, N_frames=1000, fr
 
     Label(eq_layout[1, 1],
           L"\frac{\mathrm{d}x}{\mathrm{d}t} = \sigma(y - x)",
-          fontsize=30, color=:white, halign=:left) 
+          fontsize=30pt, color=:white, halign=:left) 
     Label(eq_layout[2, 1],
           L"\frac{\mathrm{d}y}{\mathrm{d}t} = x(\rho - z) - y",
-          fontsize=30, color=:white, halign=:left)
+          fontsize=30pt, color=:white, halign=:left)
     Label(eq_layout[3, 1],
           L"\frac{\mathrm{d}z}{\mathrm{d}t} = xy - \beta z",
-          fontsize=30, color=:white, halign=:left)
+          fontsize=30pt, color=:white, halign=:left)
 
     record(fig, fname, 1:N_frames, framerate=framerate) do frame
         for (attractor, points, colors) in zip(attractors, all_points, all_colors)
@@ -200,13 +201,14 @@ function multi_lorenz(; fname="multi_lorenz.mp4", npoints=300, N_frames=1000, fr
             colors[] = n <= 1 ? Float32[1f0] : collect(LinRange(0f0, 1f0, n))
             points[] = points[]
         end
+        ax.azimuth[] = 1.7pi + 0.3 * sin(2pi * frame / (0.5 * N_frames))
     end
 end
 ```
 
 ```{julia}
 with_theme(dark_latexfonts) do
-    multi_lorenz(; N_frames=Int(4e3), framerate=60)
+    multi_lorenz(; N_frames=Int(3e3), framerate=60)
 end
 ```
 
