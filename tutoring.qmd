@@ -5,6 +5,20 @@ title: "Tutoring"
 I provided tutoring services in the following areas:
 
 * Physics
+  * Algebra and Calculus Based 
+  * Mechanics
+  * Electricity and Magnetism
+  * Classical Mechanics
+  * Quantum Mechanics
+* Astronomy/Astrophysics
 * Mathematics
+  * Algebra
+  * Geometry
+  * Calculus 1 and 2
+  * Vector Calculus
 * Computer Science
+  * Python
+  * Julia
+  * Java
+  * Javascript
 * Chess
