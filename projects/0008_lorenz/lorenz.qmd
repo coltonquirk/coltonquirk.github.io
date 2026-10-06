@@ -8,7 +8,7 @@ engine: julia
 ---
 
 ```{julia}
-using GLMakie, DataStructures
+using GLMakie, DataStructures, ProgressBars
 ```
 
 # An exploration of the Lorenz Attractor and Makie Animation
@@ -50,17 +50,50 @@ end
 ```
 
 ```{julia}
-attractor = Lorenz()
-points = Observable(CircularBuffer{Point3f}(200))
-colors = Observable(Int[])
-set_theme!(theme_black())
+dark_latexfonts = merge(theme_dark(), theme_latexfonts());
 ```
 
 ```{julia}
-fig, ax, l = lines(points, color = colors,
-    colormap=:inferno, transparency=true,
-    axis = (; type=Axis3, protrusions=(0, 0, 0, 0),
-            viewmode=:fit, limits=(-30, 30, -30, 30, 0, 50)))
+function plot_lorenz(; fname="lorenz.mp4", hist_length=200, N_frames=1000, colormap=:viridis)
+    attractor = Lorenz()
+    points = Observable(CircularBuffer{Point3f}(hist_length))
+    colors = Observable(Int[])
+
+    fig = Figure()
+    ax = Axis3(
+        fig[1,1],
+        protrusions=(0, 0, 0, 0),
+        viewmode=:fit,
+        limits=(-30, 30, -30, 30, 0, 50)
+    )
+    l = lines!(ax, points, color=colors, colormap=colormap, transparency=true)
+
+    record(fig, fname, 1:N_frames, framerate=30) do frame
+        push!(points[], step!(attractor))
+        push!(colors[], min(length(points[]), 100))
+        l.colorrange = (0, min(length(points[]), 100))
+        colors[] = colors[]
+        points[] = points[]
+    end
+end
+```
+
+```{julia}
+with_theme(dark_latexfonts) do
+    plot_lorenz()
+end
+```
+
+![](lorenz.mp4)
+
+## Interactive GLMakie Plot
+
+The following code can be used to make the lorenz plot interactive.
+It adds a run button which pauses/plays the simulation.
+It also includes a menu to change the colormap used to show the history of the simulation.
+
+```{julia}
+#| eval: false
 
 menu = Menu(fig, options=["viridis", "inferno", "magma", "plasma"])
 
@@ -83,6 +116,4 @@ on(run.clicks) do clicks
         sleep(0.001)
     end
 end 
-display(fig)
 ```
-
