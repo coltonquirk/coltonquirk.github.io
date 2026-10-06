@@ -12,6 +12,8 @@ website:
       - projects.qmd
       - tutoring.qmd
       - resume.qmd
+      - href: https://coltonquirk.github.io/comp_phys_julia
+        text: Computational Physics With Julia
   repo-url: https://github.com/coltonquirk
 
 format:
