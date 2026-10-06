@@ -484,8 +484,9 @@ window.Quarto = {
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        l.colorrange <span class="op">=</span> (<span class="fl">0</span>, <span class="fu">min</span>(<span class="fu">length</span>(points[]), <span class="fl">100</span>))</span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        colors[] <span class="op">=</span> colors[]</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        points[] <span class="op">=</span> points[]</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        ax.azimuth[] <span class="op">=</span> <span class="fl">1.7</span>pi <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fu">sin</span>(<span class="fl">2</span>pi <span class="op">*</span> frame <span class="op">/</span> N_frames)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>plot_lorenz (generic function with 1 method)</code></pre>
 </div>
@@ -561,14 +562,14 @@ window.Quarto = {
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    blues <span class="op">=</span> [<span class="fu">get</span>(ColorSchemes.Blues, t) for t <span class="kw">in</span> <span class="fu">LinRange</span>(<span class="fl">0.5</span>, <span class="fl">0.8</span>, num)]</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    cmaps <span class="op">=</span> [<span class="fu">fade_colormap</span>(c) for c <span class="kw">in</span> blues]</span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">10</span>inch, <span class="fl">7</span>inch), fontsize<span class="op">=</span><span class="fl">24</span>pt)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> <span class="fu">Figure</span>(size<span class="op">=</span>(<span class="fl">10</span>inch, <span class="fl">7</span>inch), fontsize<span class="op">=</span><span class="fl">18</span>pt)</span>
 <span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> <span class="fu">Axis3</span>(fig[<span class="fl">1</span>,<span class="fl">2</span>],</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>               protrusions<span class="op">=</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>),</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>               protrusions<span class="op">=</span>(<span class="fl">0</span>, <span class="fl">60</span>, <span class="fl">0</span>, <span class="fl">0</span>),</span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>               viewmode<span class="op">=:</span>fit,</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>               limits <span class="op">=</span> (<span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span>,<span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">0</span>,<span class="fl">50</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>               limits <span class="op">=</span> (<span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span>,<span class="op">-</span><span class="fl">30</span>,<span class="fl">30</span>,<span class="fl">0</span>,<span class="fl">50</span>),</span>
 <span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>               )</span>
 <span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Label</span>(fig[<span class="fl">1</span>, <span class="op">:</span>, <span class="fu">Top</span>()], <span class="st">"Lorenz Attractor"</span>,</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>pt,</span>
 <span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>          color<span class="op">=:</span>white,</span>
 <span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>          valign<span class="op">=:</span>bottom,</span>
 <span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>          )</span>
@@ -580,13 +581,13 @@ window.Quarto = {
 <span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Label</span>(eq_layout[<span class="fl">1</span>, <span class="fl">1</span>],</span>
 <span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>          L<span class="st">"</span><span class="sc">\f</span><span class="st">rac{\mathrm{d}x}{\mathrm{d}t} = \sigma(y - x)"</span>,</span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>, color<span class="op">=:</span>white, halign<span class="op">=:</span>left) </span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>pt, color<span class="op">=:</span>white, halign<span class="op">=:</span>left) </span>
 <span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Label</span>(eq_layout[<span class="fl">2</span>, <span class="fl">1</span>],</span>
 <span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>          L<span class="st">"</span><span class="sc">\f</span><span class="st">rac{\mathrm{d}y}{\mathrm{d}t} = x(</span><span class="sc">\r</span><span class="st">ho - z) - y"</span>,</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>, color<span class="op">=:</span>white, halign<span class="op">=:</span>left)</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>pt, color<span class="op">=:</span>white, halign<span class="op">=:</span>left)</span>
 <span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Label</span>(eq_layout[<span class="fl">3</span>, <span class="fl">1</span>],</span>
 <span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>          L<span class="st">"</span><span class="sc">\f</span><span class="st">rac{\mathrm{d}z}{\mathrm{d}t} = xy - </span><span class="sc">\b</span><span class="st">eta z"</span>,</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>, color<span class="op">=:</span>white, halign<span class="op">=:</span>left)</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>          fontsize<span class="op">=</span><span class="fl">30</span>pt, color<span class="op">=:</span>white, halign<span class="op">=:</span>left)</span>
 <span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">record</span>(fig, fname, <span class="fl">1</span><span class="op">:</span>N_frames, framerate<span class="op">=</span>framerate) <span class="cf">do</span> frame</span>
 <span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (attractor, points, colors) <span class="kw">in</span> <span class="fu">zip</span>(attractors, all_points, all_colors)</span>
@@ -595,15 +596,16 @@ window.Quarto = {
 <span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>            colors[] <span class="op">=</span> n <span class="op">&lt;=</span> <span class="fl">1</span> ? <span class="dt">Float32</span>[<span class="fl">1f0</span>] <span class="op">:</span> <span class="fu">collect</span>(<span class="fu">LinRange</span>(<span class="fl">0f0</span>, <span class="fl">1f0</span>, n))</span>
 <span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>            points[] <span class="op">=</span> points[]</span>
 <span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>        ax.azimuth[] <span class="op">=</span> <span class="fl">1.7</span>pi <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="fu">sin</span>(<span class="fl">2</span>pi <span class="op">*</span> frame <span class="op">/</span> (<span class="fl">0.5</span> <span class="op">*</span> N_frames))</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>multi_lorenz (generic function with 1 method)</code></pre>
 </div>
 </div>
 <div id="22" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with_theme</span>(dark_latexfonts) <span class="cf">do</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">multi_lorenz</span>(; N_frames<span class="op">=</span><span class="fu">Int</span>(<span class="fl">4e3</span>), framerate<span class="op">=</span><span class="fl">60</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">multi_lorenz</span>(; N_frames<span class="op">=</span><span class="fu">Int</span>(<span class="fl">3e3</span>), framerate<span class="op">=</span><span class="fl">60</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>"multi_lorenz.mp4"</code></pre>
