@@ -2,7 +2,7 @@
 title: "Colton Quirk"
 about:
     template: jolla # jolla trestles solana marque broadside
-    image: Quirk_Headshot.jpg
+    image: assets/Quirk_Headshot.jpg
     links:
         - icon: github
           text: Github

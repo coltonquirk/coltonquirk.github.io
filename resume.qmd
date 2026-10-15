@@ -2,4 +2,4 @@
 title: "Resume"
 ---
 
-![](Quirk_Resume_2026.pdf){width=800 height=1050}
+![](assets/Quirk_Resume_2026.pdf){width=800 height=1050}
