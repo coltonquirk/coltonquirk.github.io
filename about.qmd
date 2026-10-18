@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-Colton Quirk is a person.
+My name is Colton Quirk and I like to translate the physical world into the computer.
 
 ## Education
 
